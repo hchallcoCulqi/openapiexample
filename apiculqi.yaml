@@ -589,6 +589,22 @@ paths:
       responses:
         '200':
           description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - ...
+                    paging:
+                      previous: 'https://api.culqi.com/v2/charges?limit=50&before=chr_test_ 3nKwGp5EGMA8fxaW'
+                      next: 'https://api.culqi.com/v2/charges?limit=50&after=chr_test_3nKwG p5EGMA8fxaW'
+                      cursors:
+                        before: chr_test_3nKwGp5EGMA8fxaW
+                        after: chr_test_3nKwGp5EGMA8fxaW
       description: 'Listar cargos te permitirá obtener una serie de cargos existentes, de acuerdo a los filtros que uses. Los cargos serán ordenados de acuerdo a su fecha de creación, siendo el primero el más reciente.'
       parameters:
         - schema:
@@ -662,16 +678,7 @@ paths:
             schema:
               type: object
             examples:
-              example-1:
-                value:
-                  data:
-                    - ...
-                  paging:
-                    previous: 'https://api.culqi.com/v2/charges?limit=50&before=chr_test_ 3nKwGp5EGMA8fxaW'
-                    next: 'https://api.culqi.com/v2/charges?limit=50&after=chr_test_3nKwG p5EGMA8fxaW'
-                    cursors:
-                      before: chr_test_3nKwGp5EGMA8fxaW
-                      after: chr_test_3nKwGp5EGMA8fxaW
+              example-1: {}
         description: ''
   '/v2/charges/{id}':
     parameters:
