@@ -675,7 +675,8 @@ paths:
         description: ID del cargo.
     get:
       summary: Consultar Cargo
-      tags: []
+      tags:
+        - Cargos
       responses:
         '200':
           description: La petición fue exitosa.
