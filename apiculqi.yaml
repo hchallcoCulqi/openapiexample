@@ -1,0 +1,845 @@
+openapi: 3.0.0
+info:
+  title: apiculqi
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'https://api.culqi.com/'
+tags:
+  - name: Tokens
+    description: |-
+      Tokenización es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un token representa la información de la tarjeta y es devuelto a tus servidores para que puedas utilizarlo a través de Culqi Checkout, Culqi.JS o nuestras bibliotecas para móviles (iOS y Android). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa PCI DSS.
+      </br> </br>
+      Si no deseas hacer uso de los métodos de tokenización disponibles, también podrías crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa PCI DSS, como por ejemplo el siguiente autocuestionario. A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no sería enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
+      </br>
+      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes crear un cliente y posteriormente crear una tarjeta.
+  - name: Cargos
+    description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
+paths:
+  '/users/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+                dateOfBirth:
+                  type: string
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+  /user:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+              required:
+                - firstName
+                - lastName
+                - email
+                - dateOfBirth
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+  /v2/tokens:
+    post:
+      tags:
+        - Tokens
+      summary: Crear Token
+      operationId: post-v2-tokens
+      description: |-
+        Crear tokens te permitirá obtener información de la tarjeta y utilizarla para crear un cargo o crear una tarjeta.
+        - Si desarrollas una pagina web deberías crear token utilizando Culqi Checkout o CulqiJS
+        - Si desarrollas una aplicación móvil deberías crear token utilizando nuestros SDKs para móviles (iOS o Android)
+        - Si deseas crear el token de manera directa con el API de Culqi debes llenar el siguiente autocuestionario.
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer << llave_publica >>
+          in: header
+          name: Authorization
+          required: true
+          description: Llave publica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                example-1:
+                  card_number: '4111111111111111'
+                  cvv: '123'
+                  expiration_month: '09'
+                  expiration_year: '2020'
+                  email: richard@piedpiper.com
+              properties:
+                card_number:
+                  type: string
+                  minLength: 13
+                  maxLength: 16
+                  description: Número de tarjeta.
+                  example: '4111111111111111'
+                cvv:
+                  type: string
+                  minLength: 1
+                  description: CVV de la tarjeta.
+                  example: '123'
+                expiration_month:
+                  type: string
+                  minLength: 1
+                  maxLength: 2
+                  example: '09'
+                  description: Mes de expiración de la tarjeta.
+                expiration_year:
+                  type: string
+                  description: Año de expiración de la tarjeta.
+                  minLength: 4
+                  maxLength: 4
+                  example: '2020'
+                email:
+                  type: string
+                  description: Dirección de correo electrónico del cliente.
+                  minLength: 5
+                  maxLength: 50
+                  example: ichard@piedpiper.com
+                metadata:
+                  type: object
+                  description: Informacion adicional que se quiere enviar del token.
+                  example:
+                    dni: '5831543'
+              required:
+                - card_number
+                - cvv
+                - expiration_month
+                - expiration_year
+                - email
+            examples:
+              ejemplo 1:
+                value:
+                  card_number: '4111111111111111'
+                  cvv: '123'
+                  expiration_month: '09'
+                  expiration_year: '2020'
+                  email: ichard@piedpiper.com
+                  metadata:
+                    dni: '5831543'
+      responses:
+        '201':
+          description: Petición exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                ejemplo 1:
+                  value:
+                    object: token
+                    id: tkn_live_0CjjdWhFpEAZlxlz
+                    type: card
+                    email: richard@piedpiper.com
+                    creation_date: 1476132639
+                    card_number: 442328******1214
+                    last_four: '1214'
+                    active: true
+                    iin:
+                      object: iin
+                      bin: '442328'
+                      card_brand: Visa
+                      card_type: credito
+                      card_category: platinum
+                      issuer:
+                        name: Silicon Valley Bank
+                        country: United States
+                        country_code: US
+                        website: 'https://www.svb.com'
+                        phone_number: +1.800.774.7390
+                      installments_allowed:
+                        - 2
+                        - 4
+                        - 8
+                        - 12
+                        - 24
+                        - 36
+                    client:
+                      ip: 72.229.28.185
+                      ip_country: United States
+                      ip_country_code: US
+                      browser: Google Chrome 56.0.2924.87
+                      device_fingerprint: 6rITdVTYkWfOrss8
+                      device_type: escritorio
+                    metadata:
+                      dni: '5831543'
+    get:
+      tags:
+        - Tokens
+      summary: Listar Tokens
+      operationId: get-v2-tokens
+      responses:
+        '200':
+          description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                ejemplo 1:
+                  value:
+                    data: []
+                    paging:
+                      previous: null
+                      next: null
+                      cursors:
+                        before: null
+                        after: null
+      description: 'Listar tokens te permitirá obtener una serie de tokens existentes. De acuerdo a los filtros que uses los tokens serán ordenados de acuerdo a la fecha de creación, siendo el primero el más reciente.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date
+          description: Fecha del token en UNIX Timestamp.
+        - schema:
+            type: string
+          in: query
+          name: creation_date_to
+          description: Número de tarjeta.
+        - schema:
+            type: string
+            enum:
+              - Visa
+              - Mastercard
+              - Amex
+              - Diner
+          in: query
+          name: card_brand
+          description: Marca de la tarjeta.
+        - schema:
+            type: string
+            enum:
+              - credito
+              - debito
+              - prepagada
+          in: query
+          name: card_type
+          description: Tipo de tarjeta.
+        - schema:
+            type: string
+            enum:
+              - escritorio
+              - movil
+              - tablet
+          in: query
+          name: device_type
+          description: Tipo de dispositivo.
+        - schema:
+            type: string
+            minLength: 6
+            maxLength: 6
+            example: '411111'
+          in: query
+          name: bin
+          description: Primeros seis dígitos de la tarjeta expresado en formato ISO/IEC 7812.
+        - schema:
+            type: string
+            example: PE
+          in: query
+          name: country_code
+          description: 'Código del país, en formato ISO-3166 (Alfa 2).'
+        - schema:
+            type: string
+            example: '50'
+            minLength: 1
+            maxLength: 100
+          in: query
+          name: limit
+          description: Cantidad exacta de tokens que se quieren listar.
+        - schema:
+            type: string
+            minLength: 25
+            maxLength: 25
+            example: tkn_live_7lYOtONQ9LxcgJUW
+          in: query
+          name: before
+          description: El ID del token desde donde se quiere traer los resultados anteriores. No inclusivo.
+        - schema:
+            type: string
+            example: tkn_live_7lYOtOMM6LxcgJUW
+            minLength: 25
+            maxLength: 25
+          in: query
+          name: after
+          description: El ID del token desde donde se quiere traer los resultados siguientes. No inclusivo.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  '/v2/tokens/{id}':
+    get:
+      tags:
+        - Tokens
+      summary: Consultar Token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                ejemplo 1:
+                  value:
+                    object: token
+                    id: tkn_live_701ug3CDNJOAt5Q6
+                    type: card
+                    creation_date: 1486686216000
+                    card_number: 411111******1111
+                    last_four: '1111'
+                    active: false
+                    iin:
+                      object: iin
+                      bin: '411111'
+                      card_brand: Visa
+                      card_type: credit
+                      card_category: Clásica
+                      issuer:
+                        name: 'JPMORGAN CHASE BANK, N.A.'
+                        country: United States
+                        country_code: PE
+                        website: null
+                        phone_number: null
+                      installments_allowed:
+                        - 2
+                        - 4
+                        - 6
+                        - 8
+                        - 10
+                        - 12
+                    client:
+                      ip: 190.235.231.153
+                      ip_country: Perú
+                      ip_country_code: PE
+                      browser: null
+                      device_fingerprint: null
+                      device_type: null
+      operationId: get-v2-cc
+      description: Consultar el detalle de un token utilizando su respectivo ID te permitirá obtener como respuesta el objeto token solicitado. Si la petición es inválida te devolveremos un error.
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
+    parameters:
+      - schema:
+          type: string
+          example: tkn_live_LVNpj300apa78Pjq
+          minLength: 25
+          maxLength: 25
+        name: id
+        in: path
+        required: true
+        description: ID del token a consultar.
+    patch:
+      tags:
+        - Tokens
+      summary: Actualizar Token
+      operationId: patch-v2-tokens-id
+      responses:
+        '200':
+          description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                ejemplo 1:
+                  value:
+                    data: []
+                    paging:
+                      previous: null
+                      next: null
+                      cursors:
+                        before: null
+                        after: null
+      description: Actualizar un token te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crearla. Cualquier parámetro o valor no provisto será omitido en los valores de la metadata.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  metadata:
+                    order_id: '0001'
+              properties:
+                metadata:
+                  type: object
+                  description: Informacion adicional que se quiere enviar del token.
+                  example:
+                    dni: '5831543'
+                    cliente_id: 259
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
+  /v2/charges:
+    post:
+      summary: Crear cargo
+      operationId: post-v2-charges
+      responses:
+        '200':
+          description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    duplicated: false
+                    object: charge
+                    id: chr_live_kEazTaQBDtzNdwFr
+                    amount: 10000
+                    amount_refunded: 0
+                    current_amount: 10000
+                    installments: 0
+                    installments_amount: null
+                    currency: PEN
+                    email: null
+                    description: null
+                    source:
+                      object: token
+                      id: tkn_live_701ug3CDNJOAt5Q6
+                      type: card
+                      creation_date: 1487021247000
+                      card_number: 411111******1111
+                      last_four: '1111'
+                      active: true
+                      iin:
+                        object: iin
+                        bin: '411111'
+                        card_brand: Visa
+                        card_type: credit
+                        card_category: Clásica
+                        issuer:
+                          name: 'JPMORGAN CHASE BANK, N.A.'
+                          country: United States
+                          country_code: PE
+                          website: null
+                          phone_number: null
+                        installments_allowed:
+                          - 2
+                          - 4
+                          - 6
+                          - 8
+                          - 10
+                          - 12
+                      client:
+                        ip: 190.235.231.153
+                        ip_country: Perú
+                        ip_country_code: PE
+                        browser: null
+                        device_fingerprint: null
+                        device_type: null
+                    fraud_score: null
+                    antifraud_details:
+                      country_code: null
+                      first_name: null
+                      last_name: null
+                      address_city: null
+                      address: null
+                      email: richard@piedpiper.com
+                      phone: null
+                      object: client
+                    date: 1487021262000
+                    reference_code: kwd3glvhbs
+                    fee: null
+                    fee_details:
+                      - type: comision_porcentual
+                        amount: 375
+                        taxes: 68
+                        total_amount: 443
+                        currency_code: PEN
+                        object: fee
+                    net_amount: 9557
+                    response_code: venta_exitosa
+                    merchant_message: La operación de venta ha sido autorizada exitosamente
+                    user_message: Su compra ha sido exitosa.
+                    device_ip: 190.235.231.153
+                    device_country: null
+                    country_ip: null
+                    product: token
+                    state: Exitosa
+                    metadata: null
+      description: 'Para realizar un cobro a una tarjeta de débito o crédito es necesario crear un cargo usando un Token o una Tarjeta. Si utilizas tu llave secreta de integración no se realizarán cargos reales, a diferencia del entorno de producción donde enviamos tu petición a los bancos y marcas procesadoras.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  amount: '10000'
+                  currency_code: PEN
+                  email: richard@piedpiper.com
+                  source_id: tkn_live_0CjjdWhFpEAZlxlz
+              properties:
+                amount:
+                  type: integer
+                  description: Monto del cargo. Sin punto decimal.
+                  example: 100.00 serían 10000
+                  maximum: 999900
+                  minimum: 300
+                currency_code:
+                  type: string
+                  minLength: 1
+                  description: Código de la moneda en tres letras (Formato ISO 4217).
+                  enum:
+                    - PEN
+                    - USD
+                email:
+                  type: string
+                  minLength: 5
+                  description: Correo electrónico del cliente.
+                  example: richard@piedpiper.com
+                  maxLength: 50
+                source_id:
+                  type: string
+                  description: ID del objeto Token u objeto Tarjeta que se va usar para realizar el cargo.
+                  example: 'tkn_live_701ug3CDNJOAt5Q6, crd_live_TWsfemI22ypplGK6'
+                  minLength: 25
+                  maxLength: 25
+                capture:
+                  type: boolean
+                  description: Indica si se va realizar la captura automática de la tarjeta. Si no se considera por defecto tiene el valor de "true"
+                description:
+                  type: string
+                  description: Descripción del cargo a realizarse.
+                  example: Prueba
+                  minLength: 5
+                  maxLength: 80
+                installments:
+                  type: string
+                  description: Cantidad de cuotas que se van a aplicar al pago. Estas dependen de las cuotas aceptadas por el objeto token.
+                  minLength: 2
+                  maxLength: 48
+                  example: '2'
+                metadata:
+                  type: object
+                  description: Informacion adicional que se quiere enviar del cargo
+                  example:
+                    dni: '70202170'
+                antifraud_details:
+                  type: object
+                  description: 'Datos de la persona que realiza la compra, para detectar posibles fraudes.'
+              required:
+                - amount
+                - currency_code
+                - email
+                - source_id
+            examples:
+              example-1:
+                value:
+                  amount: '10000'
+                  currency_code: PEN
+                  email: richard@piedpiper.com
+                  source_id: tkn_live_0CjjdWhFpEAZlxlz
+      tags:
+        - Cargos
+    get:
+      summary: Listar Cargos
+      operationId: get-v2-charges
+      responses:
+        '200':
+          description: La petición fue exitosa.
+      description: 'Listar cargos te permitirá obtener una serie de cargos existentes, de acuerdo a los filtros que uses. Los cargos serán ordenados de acuerdo a su fecha de creación, siendo el primero el más reciente.'
+      tags:
+        - Cargos
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+        - schema:
+            type: string
+            minLength: 300
+            maxLength: 999900
+            example: 500.00 sería 50000
+          in: query
+          name: amount
+          description: Monto de los cargos en céntimos.
+        - schema:
+            type: string
+            minLength: 300
+            maxLength: 999900
+            example: 100.00 sería 10000
+          in: query
+          name: min_amount
+          description: Monto mínimo de los cargos en céntimos.
+        - schema:
+            type: string
+            example: 100.00 sería 10000
+            maxLength: 999900
+            minLength: 300
+          in: query
+          name: max_amount
+          description: Monto máximo de los cargos en céntimos.
+        - schema:
+            type: string
+            minLength: 2
+            maxLength: 48
+            example: '4'
+          in: query
+          name: installments
+          description: Cantidad de cuotas que se aplicaron al Cargo.
+        - schema:
+            type: string
+            example: '8'
+            minLength: 2
+            maxLength: 48
+          in: query
+          name: min_installments
+          description: Cantidad mínima de cuotas que se aplicaron al Cargo.
+        - schema:
+            type: string
+            example: '48'
+            minLength: 2
+            maxLength: 48
+          in: query
+          name: max_installments
+          description: Cantidad máxima de cuotas que se aplicaron al Cargo.
+        - schema:
+            type: string
+          in: query
+          name: currency_code
+          description: Código de la moneda en la que se realizaron los cargos cargo en formato ISO 4217.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: ''
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples:
+        Alice Smith:
+          id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
