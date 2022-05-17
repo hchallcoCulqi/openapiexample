@@ -741,6 +741,8 @@ paths:
           name: Authorization
           description: Llave privada
           required: true
+      tags:
+        - Cargos
 components:
   schemas:
     User:
