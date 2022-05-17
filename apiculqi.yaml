@@ -580,7 +580,7 @@ paths:
                   amount: '10000'
                   currency_code: PEN
                   email: richard@piedpiper.com
-                  source_id: tkn_live_0CjjdWhFpEAZlxlz      
+                  source_id: tkn_live_0CjjdWhFpEAZlxlz
     get:
       tags:
         - Cargos
@@ -661,6 +661,17 @@ paths:
           application/json:
             schema:
               type: object
+            examples:
+              example-1:
+                value:
+                  data:
+                    - ...
+                  paging:
+                    previous: 'https://api.culqi.com/v2/charges?limit=50&before=chr_test_ 3nKwGp5EGMA8fxaW'
+                    next: 'https://api.culqi.com/v2/charges?limit=50&after=chr_test_3nKwG p5EGMA8fxaW'
+                    cursors:
+                      before: chr_test_3nKwGp5EGMA8fxaW
+                      after: chr_test_3nKwGp5EGMA8fxaW
         description: ''
   '/v2/charges/{id}':
     parameters:
