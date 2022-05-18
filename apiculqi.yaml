@@ -1068,6 +1068,22 @@ paths:
       responses:
         '200':
           description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - ...
+                    paging:
+                      previous: 'https://api.culqi.com/v2/customers?limit=50&before=cus_live_ Psny4smwxpmEDooU'
+                      next: 'https://api.culqi.com/v2/customers?limit=50&after=cus_live_Lz6Yf sm7QqCPIECW'
+                      cursors:
+                        before: cus_live_Psny4smwxpmEDooU
+                        after: cus_live_Lz6Yfsm7QqCPIECW
       operationId: get-v2-customers
       description: 'Listar Clientes te permitirá obtener una serie de Customer existentes. De acuerdo a los filtros que uses, los clientes serán ordenados de acuerdo a su fecha de creación; siendo el primero el más reciente.'
       parameters:
