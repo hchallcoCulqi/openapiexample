@@ -1387,6 +1387,8 @@ paths:
                   metadata:
                     dni: '71702323'
         description: ''
+      tags:
+        - Clientes
     delete:
       summary: Eliminar Cliente
       operationId: delete-v2-customers-id
@@ -1418,6 +1420,8 @@ paths:
           name: Authorization
           description: Llave privada.
           required: true
+      tags:
+        - Clientes
 components:
   schemas:
     User:
