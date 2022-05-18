@@ -1291,7 +1291,7 @@ paths:
         name: id
         in: path
         required: true
-        description: ID del cliente a consultar.
+        description: ID del cliente.
     get:
       summary: Consultar Cliente
       tags:
@@ -1326,6 +1326,88 @@ paths:
         - schema:
             type: string
             default: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          description: Llave privada.
+          required: true
+    patch:
+      summary: Actualizar Cliente
+      operationId: patch-v2-customers-id
+      responses:
+        '200':
+          description: OK
+      description: Actualizar un cliente te permitirá modificar los valores enviados a la hora de crearlo. Cualquier parámetro que no sea proveído en la petición mantendrá el valor de la creación.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  metadata:
+                    dni: '71702323'
+          application/xml:
+            schema:
+              description: ''
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  properties:
+                    dni:
+                      type: string
+                      minLength: 1
+                  required:
+                    - dni
+              required:
+                - metadata
+              x-examples:
+                example-1:
+                  metadata:
+                    dni: '71702323'
+        description: ''
+    delete:
+      summary: Eliminar Cliente
+      operationId: delete-v2-customers-id
+      responses:
+        '200':
+          description: Petición exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: cus_live_LbB0x6yB2Pd0JJnP
+                    deleted: true
+                    merchant_message: Se eliminó el cliente con ID cus_live_LbB0x6yB2Pd0JJnP exitosamente.
+      description: Elimina de manera permanente a un cliente. Esta operación cancela cualquier cargo posterior o suscripción que esté relacionada con el Cliente.
+      parameters:
+        - schema:
+            type: string
           in: header
           name: Content-type
           required: true
