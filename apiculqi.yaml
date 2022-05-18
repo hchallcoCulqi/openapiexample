@@ -7,11 +7,19 @@ info:
 
     Finalmente, para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el entorno de pruebas (Regístrate y obtén tus llaves) y el entorno de producción. Usando las llaves de prueba las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar tarjetas de prueba, no tarjetas reales al probar!).
 servers:
-  - url: 'https://api.culqi.com'
+  - url: 'https://api.culqi.com/'
 tags:
-  - name: Cargos
-  - name: Devoluciones
   - name: Tokens
+    description: |-
+      Tokenización es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un token representa la información de la tarjeta y es devuelto a tus servidores para que puedas utilizarlo a través de Culqi Checkout, Culqi.JS o nuestras bibliotecas para móviles (iOS y Android). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa PCI DSS.
+      </br> </br>
+      Si no deseas hacer uso de los métodos de tokenización disponibles, también podrías crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa PCI DSS, como por ejemplo el siguiente autocuestionario. A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no sería enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
+      </br>
+      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes crear un cliente y posteriormente crear una tarjeta.
+  - name: Cargos
+    description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
+  - name: Devoluciones
+    description: Una devolución te permite devolver un cargo que ha sido creado previamente y que aún no ha sido devuelto en su totalidad. Los fondos serán devueltos a la tarjeta de crédito o débito que se ha realizado el cargo.
 paths:
   /v2/tokens:
     post:
@@ -792,18 +800,13 @@ paths:
           name: Authorization
           description: Llave privada.
           required: true
-  /v2/prueba:
-    get:
-      summary: Prueba
-      tags: []
-      responses: {}
-      operationId: get-v2-prueba
+  /v2/refunds:
     post:
       summary: Crear Devolución
-      operationId: post-v2-prueba
+      operationId: post-v2-refunds
       responses:
-        '200':
-          description: La peticioón fue exitosa.
+        '201':
+          description: La petición fue exitosa.
           content:
             application/json:
               schema:
@@ -819,10 +822,6 @@ paths:
                     creation_date: 1487039706000
                     object: refund
                     metadata: {}
-      description: |
-        Para crear una devolución es necesario que envíes el ID del cargo que deseas devolver. Esta operación retorna los fondos a la tarjeta de crédito o débito de tu cliente y adicionalmente las comisión variable cargada por Culqi.
-
-        Opcionalmente podrías devolver solo una parte del cargo, operación conocida como devolución parcial. Puedes hacerlo las veces que quieras hasta que el monto total del cargo haya sido devuelto por completo.
       parameters:
         - schema:
             type: string
@@ -837,6 +836,10 @@ paths:
           name: Authorization
           description: Llave privada
           required: true
+      description: |-
+        Para crear una devolución es necesario que envíes el ID del cargo que deseas devolver. Esta operación retorna los fondos a la tarjeta de crédito o débito de tu cliente y adicionalmente las comisión variable cargada por Culqi.
+
+        Opcionalmente podrías devolver solo una parte del cargo, operación conocida como devolución parcial. Puedes hacerlo las veces que quieras hasta que el monto total del cargo haya sido devuelto por completo.
       requestBody:
         content:
           application/json:
@@ -856,13 +859,116 @@ paths:
                 charge_id:
                   type: string
                   minLength: 1
+                  description: ID del cargo a devolver.
+                  example: chr_live_3xWxRF1Zswgp6C7N
                 reason:
                   type: string
                   minLength: 1
+                  description: 'Razón o motivo de la devolución, es una cadena de texto predefinida.'
+                  enum:
+                    - duplicado
+                    - fraudulento
+                    - solicitud_comprador
               required:
                 - amount
                 - charge_id
                 - reason
+      tags:
+        - Devoluciones
+  '/v2/refunds/{id}':
+    parameters:
+      - schema:
+          type: string
+          example: ref_live_LVNpj300apa78Pjq
+          minLength: 25
+          maxLength: 25
+        name: id
+        in: path
+        required: true
+        description: ID de la devolución a consultar.
+    get:
+      summary: Consultar Devolución
+      tags:
+        - Devoluciones
+      responses:
+        '200':
+          description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: ref_live_TTfLAgaA8nz8PWbO
+                    charge_id: chr_live_TWsfemI22ypplGK6
+                    amount: 5000
+                    reason: Devolución solicitada por el comercio
+                    creation_date: 1487039706000
+                    object: refund
+                    metadata: {}
+      operationId: get-v2-refunds-id
+      description: Devuelve los detalles de una devolución en particular. Para la petición solo debes enviar el ID de la devolución que Culqi te devolvió a la hora de crear una Devolución.
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
+    patch:
+      summary: Actualizar Devolución
+      operationId: patch-v2-refunds-id
+      responses:
+        '200':
+          description: La petición fue exitosa.
+      tags:
+        - Devoluciones
+      description: Actualizar una devolución te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crear una devolución. Cualquier parámetro o valor no provisto será omitido en la el valores de la metadata.
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  metadata:
+                    dni: '71702323'
+              properties:
+                metadata:
+                  type: object
+                  example:
+                    dni: '71702323'
+              required:
+                - metadata
+            examples:
+              example-1:
+                value:
+                  metadata:
+                    dni: '71702323'
 components:
   schemas:
     User:
