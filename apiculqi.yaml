@@ -20,9 +20,9 @@ tags:
     description: |-
       **Tokenización** es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un token representa la información de la tarjeta y es devuelto a tus servidores para que puedas utilizarlo a través de [Culqi Checkout](https://docs.culqi.com/#/pagos/checkout), [Culqi.JS](https://docs.culqi.com/#/pagos/js) o nuestras bibliotecas para móviles ([iOS](https://docs.culqi.com/#/pagos/ios) y [Android](https://docs.culqi.com/#/pagos/android)). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa **PCI DSS**.
       </br> </br>
-      Si no deseas hacer uso de los métodos de tokenización disponibles, también podrías crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa PCI DSS, como por ejemplo el siguiente autocuestionario. A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no sería enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
+      Si no deseas hacer uso de los métodos de tokenización disponibles, también podrías crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa PCI DSS, como por ejemplo el [siguiente autocuestionario](https://www.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf). A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no sería enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
-      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes crear un cliente y posteriormente crear una tarjeta.
+      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente]() y posteriormente [crear una tarjeta]().
   - name: Cargos
     description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
   - name: Devoluciones
@@ -1186,7 +1186,7 @@ paths:
           description: El ID del cliente desde donde se quiere traer los resultados siguientes. No inclusivo.
     post:
       summary: Crear Cliente
-      operationId: post-v2-customers
+      operationId: crear-cliente
       responses:
         '201':
           description: La petición fue exitosa.
