@@ -3,15 +3,22 @@ info:
   title: CULQI API
   version: '1.0'
   description: |-
-    La API de Culqi está construido bajo los estándares de REST. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los códigos de respuesta HTTP para indicar los posibles errores en el API. Es importante indicar que se encuentra implementada una autenticación HTTP (Bearer Token), solicitada en cada petición. Además, soportamos las solicitudes HTTP de origen cruzado (CORS), permitiendo que tu sitio y Culqi puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente (aunque NUNCA deberías exponer tu Llave Secreta en el código de la aplicación web cliente). Por otro lado, un objeto JSON es retornado en cada una las peticiones hacia el API, incluyendo los errores. Adicionalmente nuestras bibliotecas convierten las respuestas en objetos específicos para cada lenguaje soportado.
+    # Introducción
+    La API de [Culqi](http://culqi.com/) está construido bajo los estándares de **REST**. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los [códigos de respuesta HTTP](https://httpstatuses.com/) para indicar los posibles errores en el API. Es importante indicar que se encuentra implementada una autenticación HTTP (<em>Bearer Token</em>), solicitada en cada petición. A<demás, soportamos las solicitudes HTTP de origen cruzado (CORS), permitiendo que tu sitio y Culqi puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente (aunque NUNCA deberías exponer tu Llave Secreta en el código de la aplicación web cliente). Por otro lado, un objeto JSON es retornado en cada una las peticiones hacia el API, incluyendo los errores. Adicionalmente nuestras bibliotecas convierten las respuestas en objetos específicos para cada lenguaje soportado.
 
     Finalmente, para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el entorno de pruebas (Regístrate y obtén tus llaves) y el entorno de producción. Usando las llaves de prueba las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar tarjetas de prueba, no tarjetas reales al probar!).
+
+    This API is documented in **OpenAPI format** and is based on
+    [Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.
+    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
+    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
+    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).
 servers:
   - url: 'https://api.culqi.com'
 tags:
   - name: Tokens
     description: |-
-      Tokenización es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un token representa la información de la tarjeta y es devuelto a tus servidores para que puedas utilizarlo a través de Culqi Checkout, Culqi.JS o nuestras bibliotecas para móviles (iOS y Android). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa PCI DSS.
+      **Tokenización** es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un token representa la información de la tarjeta y es devuelto a tus servidores para que puedas utilizarlo a través de [Culqi Checkout](https://docs.culqi.com/#/pagos/checkout), [Culqi.JS](https://docs.culqi.com/#/pagos/js) o nuestras bibliotecas para móviles ([iOS](https://docs.culqi.com/#/pagos/ios) y [Android](https://docs.culqi.com/#/pagos/android)). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa **PCI DSS**.
       </br> </br>
       Si no deseas hacer uso de los métodos de tokenización disponibles, también podrías crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa PCI DSS, como por ejemplo el siguiente autocuestionario. A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no sería enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
@@ -567,7 +574,7 @@ paths:
                   description: Cantidad de cuotas que se van a aplicar al pago. Estas dependen de las cuotas aceptadas por el objeto token.
                   minLength: 2
                   maxLength: 48
-                  example: '2'
+                  example: 2
                 metadata:
                   type: object
                   description: Informacion adicional que se quiere enviar del cargo
