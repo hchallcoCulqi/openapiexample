@@ -7,7 +7,7 @@ info:
 
     Finalmente, para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el entorno de pruebas (Regístrate y obtén tus llaves) y el entorno de producción. Usando las llaves de prueba las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar tarjetas de prueba, no tarjetas reales al probar!).
 servers:
-  - url: 'https://api.culqi.com/'
+  - url: 'https://api.culqi.com'
 tags:
   - name: Tokens
     description: |-
@@ -21,7 +21,7 @@ tags:
   - name: Devoluciones
     description: Una devolución te permite devolver un cargo que ha sido creado previamente y que aún no ha sido devuelto en su totalidad. Los fondos serán devueltos a la tarjeta de crédito o débito que se ha realizado el cargo.
   - name: Clientes
-    descripcion: 'El recurso cliente te permite guardar la información de tus clientes para realizarles cargos recurrentes o posteriores. La API de Culqi permite crear, eliminar y actualizar los datos de tus clientes. Adicionalmente podrás consultar los datos de un cliente en particular o listar a todos tus clientes en base a los filtros que desees.'
+    description: 'El recurso cliente te permite guardar la información de tus clientes para realizarles cargos recurrentes o posteriores. La API de Culqi permite crear, eliminar y actualizar los datos de tus clientes. Adicionalmente podrás consultar los datos de un cliente en particular o listar a todos tus clientes en base a los filtros que desees.'
 paths:
   /v2/tokens:
     post:
