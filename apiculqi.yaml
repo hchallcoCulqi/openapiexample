@@ -7,14 +7,14 @@ info:
     La API de [Culqi](http://culqi.com/) está construido bajo los estándares de **REST**. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los [códigos de respuesta HTTP](https://httpstatuses.com/) para indicar los posibles errores en el API. Es importante indicar que se encuentra implementada una autenticación HTTP (<em>Bearer Token</em>), solicitada en cada petición. A<demás, soportamos las solicitudes HTTP de origen cruzdo (CORS), permitiendo que tu sitio y Culqi puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente (aunque NUNCA deberías exponer tu Llave Secreta en el código de la aplicación web cliente). Por otro lado, un objeto JSON es retornado en cada una las peticiones hacia el API, incluyendo los errores. Adicionalmente nuestras bibliotecas convierten las respuestas en objetos específicos para cada lenguaje soportado.
 
     Finalmente, para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el entorno de pruebas (Regístrate y obtén tus llaves) y el entorno de producción. Usando las llaves de prueba las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar tarjetas de prueba, no tarjetas reales al probar!).
-    
+
     # Autenticación
     Para poder acceder y utilizar la API de Culqi necesitas previamente obtener tus [Llaves de Autenticación](https://docs.culqi.com/#/cuenta/cuenta#llaves) e incluirlas en cada petición que hagas al API. Podrás encontrar tus llaves en el Panel de [Integración](http://integ-panel.culqi.com/) y [Producción](http://panel.culqi.com/) de Culqi.
     <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
     Para usar el API de Culqi utiliza autenticación Bearer como se muestra a continuación 
-    
+
     # Errores
-    
+
     # Metadata
 
     # Paginación
@@ -22,7 +22,7 @@ info:
     # ID de Rastreo
 
     # Versionado
-    
+
     # Webhooks
 
     # Ejemplo
@@ -98,6 +98,10 @@ tags:
       ```
   - name: Planes
     description: 'Un plan de suscripción contiene información acerca del tipo de cargo, frecuencia y monto que quieres cargarle a un Card de manera recurrente. Por ejemplo, podrías configurar un plan básico de S/ 50 mensuales y un plan Premium de S/ 75 mensuales.'
+  - name: Suscripciones
+    description: El crear suscripciones te permite realizar cargos recurrentes a la tarjeta de un cliente. Una suscripción relaciona al objeto Customer y al objeto Plan que has creado previamente.
+  - name: Ordenes
+    description: 'El objeto Orden contiene información de una posible venta. Es usado para el método de pago en efectivo. Una vez es pagada la orden por tu cliente via banco o agente, cambia de estado en el momento de la acción. Con este recurso podrás brindar a tus clientes la opción de pagar sus compras en efectivo.'
 paths:
   /v2/tokens:
     post:
@@ -2243,6 +2247,704 @@ paths:
           description: Llave privada.
       tags:
         - Tarjetas
+  /v2/subscriptions:
+    parameters: []
+    get:
+      summary: Listar Suscripciones
+      tags:
+        - Suscripciones
+      responses:
+        '200':
+          description: La petición fue exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+      operationId: get-users-userId
+      description: 'Listar suscripciones te permitirá obtener una serie de suscripciones existentes. De acuerdo a los filtros que uses, las diferentes suscripciones serán ordenadas de acuerdo a su fecha de creación; siendo el primero el más reciente.'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+        - schema:
+            type: string
+            example: '2000'
+            minLength: 300
+            maxLength: 9999900
+          in: query
+          name: amount
+          description: Monto de los planes asociados a las suscripciones
+        - schema:
+            type: string
+            example: '2000'
+            minLength: 300
+            maxLength: 9999900
+          in: query
+          name: min_amount
+          description: Monto mínimo de los planes asociados a las suscripciones
+        - schema:
+            type: string
+            example: '4000'
+            minLength: 300
+            maxLength: 9999900
+          in: query
+          name: max_amount
+          description: Monto máximo de los planes asociados a las suscripciones
+        - schema:
+            type: string
+            example: '1476132639'
+            format: date
+          in: query
+          name: date
+          description: Fecha de la suscripción en UNIX Timestamp
+        - schema:
+            type: string
+            example: '1476132639'
+            format: date
+          in: query
+          name: date_from
+          description: Fecha inicial de las suscripciones en UNIX Timestamp
+        - schema:
+            type: string
+            example: '1476132639'
+            format: date
+          in: query
+          name: date_to
+          description: Fecha limite de las suscripciones en UNIX Timestamp
+        - schema:
+            type: string
+            example: 'Valores permitidos: Dias, Semanas, Meses, Años,'
+          in: query
+          name: interval
+          description: Intervalo de los planes asociados a las suscripciones
+        - schema:
+            type: string
+            example: 'Activa, Cancelada, Finalizada,'
+          in: query
+          name: status
+          description: Estado de las suscripciones  Valores permitidos
+        - schema:
+            type: string
+            example: '50'
+            minLength: 1
+            maxLength: 100
+          in: query
+          name: limit
+          description: Cantidad exacta de suscripciones que se quieren listar.
+        - schema:
+            type: string
+            example: sub_live_7lYOtONQ9LxcgJUW
+            minLength: 25
+            maxLength: 25
+          in: query
+          name: before
+          description: El ID de la suscripción desde donde se quiere traer la página anterior. No inclusivo.
+        - schema:
+            type: string
+            minLength: 25
+            maxLength: 25
+            example: sub_live_7lYOtOMM6LxcgJUW
+          in: query
+          name: after
+          description: El ID de la suscripción desde donde se quiere traer la siguiente página. No inclusivo.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+                dateOfBirth:
+                  type: string
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+    post:
+      summary: Crear Suscripción
+      operationId: post-v2-subscriptions
+      responses:
+        '201':
+          description: La petición fue exitosa
+      description: Esta operación relaciona la tarjeta de un cliente con un plan de cobranza recurrente creado anteriormente.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  card_id: crd_live_b3MMECR8cJ5tZqf2
+                  plan_id: pln_live_jwOAYnxX49o2ydWv
+              properties:
+                card_id:
+                  type: string
+                  example: '"crd_live_b3MMECR8cJ5tZqf2"'
+                  minLength: 25
+                  maxLength: 25
+                  description: ID de la tarjeta.
+                plan_id:
+                  type: string
+                  description: ID del plan.
+                  example: '"pln_live_jwOAYnxX49o2ydWv"'
+                  minLength: 25
+                  maxLength: 25
+                metadata:
+                  type: object
+                  description: |-
+                    Información adicional de la suscripción
+
+                    Example: {"cliente_id": "256", "documento_identidad": "000551487"}
+              required:
+                - card_id
+                - plan_id
+        description: ''
+  '/v2/subscriptions/{id}':
+    parameters:
+      - schema:
+          type: string
+          minLength: 25
+          maxLength: 25
+          example: '"sub_live_0CjjdWhFpEAZlxlz"'
+        name: id
+        in: path
+        required: true
+        description: ID de la suscripcion a consultar.
+    get:
+      summary: Consultar Suscripción
+      tags:
+        - Suscripciones
+      responses:
+        '200':
+          description: La petición fue exitosa
+      operationId: get-v2-subscriptions-id
+      description: Devuelve los detalles de una Suscripción en particular. Para la petición solo debes enviar el ID de la Suscripción que Culqi te devolvió a la hora de crearlo.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+    patch:
+      summary: Actualizar Suscripción
+      operationId: patch-v2-subscriptions-id
+      responses:
+        '200':
+          description: La petición fue exitosa
+      description: Actualizar una suscripción te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crearla. Cualquier parámetro o valor no provisto será omitido en los valores de la metadata.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  metadata:
+                    dni: '71702323'
+              properties:
+                metadata:
+                  type: object
+                  required:
+                    - dni
+                  description: |-
+                    Información adicional de la suscripción a modificar
+
+                    Example: {"cliente_id": "259", "documento_identidad": "000551337"}
+                  properties:
+                    dni:
+                      type: string
+                      minLength: 1
+              required:
+                - metadata
+    delete:
+      summary: Cancelar Suscripción
+      operationId: delete-v2-subscriptions-id
+      responses:
+        '200':
+          description: La pertición fue exitosa
+      description: Esta operación permite cancelar la suscripción a una tarjeta para que el cliente no vuelva a ser cobrado nuevamente.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+  /v2/orders:
+    parameters: []
+    get:
+      summary: Listar órdenes
+      tags: []
+      responses:
+        '200':
+          description: La petición fue exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+      operationId: get-users-userId
+      description: 'Listas órdenes permtie obtener el listado de órdenes de tu comercio. De acuerdo a los filtros que uses, las ordenes serán ordenados de acuerdo a su fecha de creación; siendo el primero el más reciente.'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+        - schema:
+            type: integer
+            minimum: 100
+            maximum: 999900
+            example: 50.00 sería 5000
+          in: query
+          name: amount
+          description: Monto de la orden en céntimos.
+        - schema:
+            type: integer
+            example: 100.00 sería 10000
+          in: query
+          name: min_amount
+          description: Monto mínimo de los cargos en céntimos.
+        - schema:
+            type: integer
+            minimum: 100
+            maximum: 999900
+            example: 100.00 sería 10000
+          in: query
+          name: max_amount
+          description: Monto máximo de los cargos en céntimos.
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date
+          description: Fecha de la tarjeta en UNIX Timestamp
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date_from
+          description: Fecha inicial de las tarjetas en UNIX Timestamp
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date_to
+          description: Fecha limite de las tarjetas en UNIX Timestamp
+        - schema:
+            type: string
+            example: 'created, pending, paid, expired, deleted,'
+          in: query
+          name: state
+          description: 'Estado de la orden a consultar  Valores permitidos:'
+        - schema:
+            type: integer
+            example: 50
+            minimum: 1
+            maximum: 100
+          in: query
+          name: limit
+          description: Cantidad exacta de ordenes que se quieren listar.
+        - schema:
+            type: string
+            minLength: 25
+            maxLength: 25
+            example: ord_live_7lYOtONQ9LxcgJUW
+          in: query
+          name: before
+          description: El ID de la orden desde donde se quiere traer los resultados anteriores. No inclusivo.
+        - schema:
+            type: string
+            example: ord_live_7lYOtOMM6LxcgJUW
+            minLength: 25
+            maxLength: 25
+          in: query
+          name: after
+          description: El ID de la orden desde donde se quiere traer los resultados siguientes. No inclusivo.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+                dateOfBirth:
+                  type: string
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+    post:
+      summary: Crear Orden
+      operationId: post-v2-orders
+      responses:
+        '201':
+          description: La petición fue exitosa
+      description: 'La creación de una orden permite que se genere un objeto orden con los detalles de la posible venta. Esta orden nace con un estado pendiente de pago. Además, al momento de la creación tu cliente recibe un correo con las instrucciones de como pagar la orden.'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  amount: 1000
+                  currency_code: PEN
+                  description: Venta de prueba
+                  order_number: pedido-9999
+                  client_details:
+                    first_name: Richard
+                    last_name: Hendricks
+                    email: richard@piedpiper.com
+                    phone_number: '+51945145288'
+                  expiration_date: 1538772846
+              properties:
+                amount:
+                  type: integer
+                  description: Monto de la orden. Sin punto decimal.
+                  example: 600.00 serían 60000
+                  minimum: 600
+                  maximum: 999900
+                currency_code:
+                  type: string
+                  minLength: 1
+                  description: Código de la moneda en tres letras (Formato ISO 4217).
+                  example: PEN
+                description:
+                  type: string
+                  description: Descripcion de la orden
+                  example: ' Venta de polo'
+                  minLength: 5
+                  maxLength: 80
+                order_number:
+                  type: string
+                  minLength: 1
+                  description: Numero que identifica a la orden. Debe ser unico
+                  example: '"#id-9999"'
+                  maxLength: 36
+                expiration_date:
+                  type: string
+                  description: Fecha de expiracion de la orden. Debe ser una fecha futura.
+                  example: '"1476132639"'
+                  format: time
+                client_details:
+                  type: object
+                  required:
+                    - confirm
+                    - metadata
+                  description: "\t\nDatos de la persona que realiza la compra."
+                  properties:
+                    confirm:
+                      type: boolean
+                      description: "\t\nIndica si se debe confirmar la orden. Por defecto tiene un valor true.\n\nExample: true"
+                    metadata:
+                      type: object
+                      description: |-
+                        Informacion adicional que se requiera enviar al crear la orden.
+
+                        Example: "{dni"=>"71702999"}"
+              required:
+                - amount
+                - currency_code
+                - description
+                - order_number
+                - expiration_date
+                - client_details
+  '/v2/orders/{id}/confirm':
+    post:
+      summary: Confirmar orden
+      operationId: post-user
+      responses:
+        '200':
+          description: La peticioón fue exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      description: 'El uso de este método es opcional. Confirmar una orden permite que una orden se habilite para ser pagada, generandole un código de pago y pasando a estado "pendiente". Solo se puede usar este método cuando la orden se encuentra en estado "creada".'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      tags:
+        - Ordenes
+    parameters:
+      - schema:
+          type: string
+          example: '"ord_live_0CjjdWhFpEAZlxlz"'
+          minLength: 25
+          maxLength: 25
+        name: id
+        in: path
+        required: true
+        description: ID de la orden a confirmar.
+  '/v2/orders/{id}':
+    parameters:
+      - schema:
+          type: string
+          example: '"ord_live_QDO81GT6Zaseewkp"'
+          minLength: 25
+          maxLength: 25
+        name: id
+        in: path
+        required: true
+        description: ID de la orden a consultar.
+    get:
+      summary: Consultar Orden
+      tags:
+        - Ordenes
+      responses:
+        '200':
+          description: La petición fue exitosa
+      operationId: get-v2-orders-id
+      description: Consulta el detalle de una orden utilizando su ID. Como respuesta exitosa obtendrás un objeto Orden. Si la petición es inválida te devolveremos un error
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+    patch:
+      summary: Actualizar orden
+      operationId: patch-v2-orders-id
+      responses:
+        '200':
+          description: La petición fue exitosa
+      description: |
+        Con actualizar una orden se puede extender la validez de una orden, es decir, el tiempo de expiración. Además, te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crearla. Cualquier parámetro o valor no provisto será omitido en los valores de la metadata.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  expiration_date: 234354545
+              properties:
+                expiration_date:
+                  type: string
+                  description: Nueva fecha de expiración. Debe ser mayor a la fecha de expiración original.
+                  example: '"ord_live_vEcZSCOVz5PGDPdQ"'
+                  minLength: 25
+                  maxLength: 25
+                metadata:
+                  type: object
+                  description: "\t\nInformación adicional de la orden a modificar\n\nExample: \"{\"dni\"=>\"71701978\"}\""
+              required:
+                - expiration_date
+      tags:
+        - Ordenes
+    delete:
+      summary: Eliminar orden
+      operationId: delete-v2-orders-id
+      responses:
+        '200':
+          description: La petición fue exitosa
+      description: Eliminar una Orden te permitirá desactivar y dejar sin efecto una orden. Solo se puede aplicar para ordenes que se encuentren en estado 'pendiente' o 'creada'.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      tags:
+        - Ordenes
 components:
   schemas:
     User:
