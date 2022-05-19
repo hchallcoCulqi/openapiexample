@@ -13,6 +13,9 @@ info:
     It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
     tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
     OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).
+
+    # Ejemplo
+    esto es un ejemplo.
 servers:
   - url: 'https://api.culqi.com'
 tags:
@@ -22,7 +25,7 @@ tags:
       </br> </br>
       Si no deseas hacer uso de los métodos de tokenización disponibles, también podrías crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa PCI DSS, como por ejemplo el [siguiente autocuestionario](https://www.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf). A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no sería enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
-      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#tag/Clientes/operation/post-v2-customers) y posteriormente [crear una tarjeta]().
+      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](tag/Clientes/operation/post-v2-customers) y posteriormente [crear una tarjeta]().
   - name: Cargos
     description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
   - name: Devoluciones
@@ -1429,6 +1432,363 @@ paths:
           required: true
       tags:
         - Clientes
+  /v2/plans:
+    parameters: []
+    get:
+      summary: Listar Planes
+      tags: []
+      responses:
+        '200':
+          description: La petición fue exitosa
+      operationId: get-users-userId
+      description: 'Listar planes te permitirá obtener una serie de planes existentes. De acuerdo a los filtros que uses los planes serán ordenados de acuerdo a la fecha de creación, siendo el primero el más reciente.'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+        - schema:
+            type: integer
+            example: Prueba
+            minLength: 300
+            maxLength: 999900
+            minimum: 300
+            maximum: 999900
+          in: query
+          name: amount
+          description: Monto de los planes en céntimos.
+        - schema:
+            type: integer
+            example: 100.00 sería 10000
+            minLength: 300
+            maxLength: 999900
+            minimum: 300
+            maximum: 999900
+          in: query
+          name: min_amount
+          description: Monto mínimo de los planes en céntimos.
+        - schema:
+            type: integer
+            example: 100.00 sería 10000
+            minimum: 300
+            maximum: 999900
+          in: query
+          name: max_amount
+          description: Monto máximo de los planes en céntimos.
+        - schema:
+            type: string
+            minLength: 5
+            maxLength: 15
+            example: '34343443434'
+          in: query
+          name: creation_date_from
+          description: Fecha inicial de los planes en UNIX Timestamp
+        - schema:
+            type: string
+            minLength: 5
+            maxLength: 15
+            example: '34343443434'
+          in: query
+          name: creation_date_to
+          description: Fecha limite de los planes en UNIX Timestamp
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            example: 50
+          in: query
+          name: limit
+          description: Cantidad exacta de planes que se quieren listar.
+        - schema:
+            type: string
+            minLength: 25
+            maxLength: 25
+            example: pln_live_7lYOtONQ9LxcgJUW
+          in: query
+          name: before
+          description: El ID del plan desde donde se quiere traer los resultados anteriores. No inclusivo.
+        - schema:
+            type: string
+            example: pln_live_7lYOtOMM6LxcgJUW
+            minLength: 25
+            maxLength: 25
+          in: query
+          name: after
+          description: El ID del plan desde donde se quiere traer los resultados siguientes. No inclusivo.
+    post:
+      summary: Crear Plan
+      operationId: post-v2-plans
+      responses:
+        '201':
+          description: La petición fue exitosa
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  object:
+                    type: string
+                    minLength: 1
+                  id:
+                    type: string
+                    minLength: 1
+                  creation_date:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 1
+                  amount:
+                    type: number
+                  currency_code:
+                    type: string
+                    minLength: 1
+                  interval_count:
+                    type: number
+                  interval:
+                    type: string
+                    minLength: 1
+                  limit:
+                    type: number
+                  trial_days:
+                    type: number
+                  total_subscriptions:
+                    type: number
+                  metadata:
+                    type: object
+                    properties: {}
+                    required: []
+                required:
+                  - object
+                  - id
+                  - creation_date
+                  - name
+                  - amount
+                  - currency_code
+                  - interval_count
+                  - interval
+                  - limit
+                  - trial_days
+                  - total_subscriptions
+                  - metadata
+                x-examples:
+                  example-1:
+                    object: plan
+                    id: pln_live_uvBzalwuY3UsxJ9l
+                    creation_date: 1556569427000
+                    name: Hooli Subscription
+                    amount: 2000
+                    currency_code: PEN
+                    interval_count: 1
+                    interval: Meses
+                    limit: 0
+                    trial_days: 0
+                    total_subscriptions: 0
+                    metadata: {}
+      description: Esta operación te permitirá configurar los detalles del plan para que puedas realizar cargos recurrentes. Adicionalmente podrás hacer esta operación vía el Panel de Culqi.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  name: Hooli Subscription
+                  amount: 2000
+                  currency_code: PEN
+                  interval: meses
+                  interval_count: 1
+                  limit: 12
+              properties:
+                name:
+                  type: string
+                  description: |-
+                    Nombre del plan.
+
+                    Ejemplo: "Mi primer plan Básico"
+                  example: '"Mi primer plan Básico"'
+                  minLength: 2
+                  maxLength: 50
+                amount:
+                  type: number
+                  description: |-
+                    Monto del plan a cobrar recurrentemente. Sin punto decimal
+
+                    Ejemplo: 100.00 serían 10000
+                  example: 100.00 serían 10000
+                  minimum: 300
+                  maximum: 999900
+                currency_code:
+                  type: string
+                  minLength: 1
+                  description: |
+                    Código de la moneda en tres letras (Formato ISO 4217).
+
+                    Ejemplo: "PEN", "USD"
+                  example: '"PEN", "USD"'
+                interval:
+                  type: string
+                  minLength: 1
+                  example: 'Valores permitidos: dias, semanas, meses, años,'
+                  maxLength: 7
+                  description: 'Cantidad de cada cuanto se deben ejecutar los cargos del plan. Si en ''interval'' pusimos "meses", poner valor 1 en este campo hará que se cobre cada mes.'
+                interval_count:
+                  type: number
+                  description: |-
+                    Cantidad de cada cuanto se deben ejecutar los cargos del plan. Si en 'interval' pusimos "meses", poner valor 1 en este campo hará que se cobre cada mes.
+
+                    Ejemplo: 1
+                  example: 1
+                  minimum: 1
+                  maximum: 999
+                trial_days:
+                  type: integer
+                  description: |-
+                    Número de días del periodo de prueba (sin costo).
+
+                    Ejemplo: "5
+                  example: '"5"'
+                  minimum: 1
+                  maximum: 99
+                limit:
+                  type: number
+                  description: |-
+                    Limite de cargos a realizar (ciclos). Si no se define, es automáticamente sin límite.
+
+                    Ejemplo: "12"
+                  example: '"12"'
+                  minimum: 2
+                  maximum: 99
+                metadata:
+                  type: object
+                  description: |
+                    Informacion adicional que se requiera enviar al crear el plan.
+
+                    Example: {"descripcion" : "Este es un plan para poder agruparlos a todos."}
+              required:
+                - name
+                - amount
+                - currency_code
+                - interval
+                - interval_count
+            examples:
+              example-1:
+                value: {}
+  '/v2/plans/{id}':
+    parameters:
+      - schema:
+          type: string
+          minLength: 25
+          maxLength: 25
+          example: '"pln_live_QDO81GT6Zaseewkp"'
+        name: id
+        in: path
+        required: true
+        description: ID del plan a consultar
+    get:
+      summary: Consultar Plan
+      tags: []
+      responses:
+        '200':
+          description: La petición fue exitosa
+      operationId: get-v2-plans-id
+      description: Devuelve los detalles de un Plan en particular. Para la petición solo debes enviar el ID del Plan que Culqi te devolvió a la hora de crearlo.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: ''
+    patch:
+      summary: Actualizar Plan
+      operationId: patch-v2-plans-id
+      responses:
+        '200':
+          description: La petición fue exitosa
+      description: Actualizar un plan te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crearla. Cualquier parámetro o valor no provisto será omitido en los valores de la metadata.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  metadata:
+                    descripcion: Plan inicial.
+              properties:
+                metadata:
+                  type: object
+                  required:
+                    - descripcion
+                  description: |-
+                    Información adicional del plan a modificar
+
+                    Example: "{"descripcion"=>"Este es un plan simple."}"
+                  properties:
+                    descripcion:
+                      type: string
+                      minLength: 1
+              required:
+                - metadata
+    delete:
+      summary: Eliminar Plan
+      operationId: delete-v2-plans-id
+      responses:
+        '200':
+          description: La petición fue exitosa
+      description: Elimina de manera permanente un Plan. Esta operación cancela todas las suscripciones relacionadas con el Plan.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer << llave_privada >>
 components:
   schemas:
     User:
