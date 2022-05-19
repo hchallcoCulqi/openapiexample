@@ -44,6 +44,7 @@ tags:
       <div class="box info"><div class="content">Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#operation/crear-cliente) y posteriormente [crear una tarjeta](#operation/crear-tarjeta).</div></div>
       
       **Objeto Token:**
+      ## Objeto Token:##
       <SchemaDefinition schemaRef="#/components/schemas/Token" />
 
   - name: Cargos
