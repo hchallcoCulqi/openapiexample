@@ -2,9 +2,9 @@ openapi: 3.0.0
 info:
   title: CULQI API
   version: '1.0'
-  description: |-
+  description: |
     # Introducción
-    La API de [Culqi](http://culqi.com/) está construido bajo los estándares de **REST**. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los [códigos de respuesta HTTP](https://httpstatuses.com/) para indicar los posibles errores en el API. Es importante indicar que se encuentra implementada una autenticación HTTP (<em>Bearer Token</em>), solicitada en cada petición. A<demás, soportamos las solicitudes HTTP de origen cruzado (CORS), permitiendo que tu sitio y Culqi puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente (aunque NUNCA deberías exponer tu Llave Secreta en el código de la aplicación web cliente). Por otro lado, un objeto JSON es retornado en cada una las peticiones hacia el API, incluyendo los errores. Adicionalmente nuestras bibliotecas convierten las respuestas en objetos específicos para cada lenguaje soportado.
+    La API de [Culqi](http://culqi.com/) está construido bajo los estándares de **REST**. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los [códigos de respuesta HTTP](https://httpstatuses.com/) para indicar los posibles errores en el API. Es importante indicar que se encuentra implementada una autenticación HTTP (<em>Bearer Token</em>), solicitada en cada petición. A<demás, soportamos las solicitudes HTTP de origen cruzdo (CORS), permitiendo que tu sitio y Culqi puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente (aunque NUNCA deberías exponer tu Llave Secreta en el código de la aplicación web cliente). Por otro lado, un objeto JSON es retornado en cada una las peticiones hacia el API, incluyendo los errores. Adicionalmente nuestras bibliotecas convierten las respuestas en objetos específicos para cada lenguaje soportado.
 
     Finalmente, para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el entorno de pruebas (Regístrate y obtén tus llaves) y el entorno de producción. Usando las llaves de prueba las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar tarjetas de prueba, no tarjetas reales al probar!).
 
@@ -1957,6 +1957,133 @@ paths:
               required:
                 - customer_id
                 - token_id
+    get:
+      summary: Listar Tarjetas
+      operationId: get-v2-cards
+      responses:
+        '200':
+          description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - ...
+                    paging:
+                      previous: 'https://api.culqi.com/v2/cards?limit=50&before=crd_live_RzjT yGUwZioJLpZt'
+                      next: 'https://api.culqi.com/v2/cards?limit=50&after=crd_live_Z1YXhVdg6 0B0UCLI'
+                      cursors:
+                        before: crd_live_RzjTyGUwZioJLpZt
+                        after: crd_live_Z1YXhVdg60B0UCLI
+      tags:
+        - Tarjetas
+      description: 'Listar Tarjetas te permitirá obtener una serie de Tarjetas existentes. De acuerdo a los filtros que uses, las tarjetas serán ordenados de acuerdo a su fecha de creación; siendo el primero el más reciente.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada.
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date
+          description: Fecha de la tarjeta en UNIX Timestamp.
+        - schema:
+            type: string
+            example: '1476132639'
+            minLength: 5
+            maxLength: 15
+          in: query
+          name: creation_date_from
+          description: Fecha inicial de las tarjetas en UNIX Timestamp.
+        - schema:
+            type: string
+            example: '1476132639'
+            minLength: 5
+            maxLength: 15
+          in: query
+          name: creation_date_to
+          description: Fecha limite de las tarjetas en UNIX Timestamp.
+        - schema:
+            type: string
+            enum:
+              - Visa
+              - Mastercard
+              - Amex
+              - Diners
+          in: query
+          name: card_brand
+          description: Marca de la tarjeta.
+        - schema:
+            type: string
+            enum:
+              - credito
+              - debito
+              - prepagada
+          in: query
+          name: card_type
+          description: Tipo de la tarjeta a consultar.
+        - schema:
+            type: string
+            enum:
+              - escritorio
+              - movil
+              - tablet
+          in: query
+          name: device_type
+          description: Tipo de dispositivo.
+        - schema:
+            type: string
+            example: '411111'
+            minLength: 5
+            maxLength: 15
+          in: query
+          name: bin
+          description: Son los primeros seis dígitos del número de tarjeta.
+        - schema:
+            type: string
+            example: PE
+          in: query
+          name: country_code
+          description: 'Código del país, en formato ISO-3166 (Alfa 2).'
+        - schema:
+            type: string
+            example: '50'
+            minLength: 1
+            maxLength: 100
+          in: query
+          name: limit
+          description: Cantidad exacta de clientes que se quieren listar.
+        - schema:
+            type: string
+            minLength: 25
+            maxLength: 25
+            example: crd_live_7lYOtONQ9LxcgJUW
+          in: query
+          name: before
+          description: El ID de la tarjeta desde donde se quiere traer los resultados anteriores. No inclusivo.
+        - schema:
+            type: string
+            example: crd_live_7lYOtOMM6LxcgJUW
+            minLength: 25
+            maxLength: 25
+          in: query
+          name: after
+          description: El ID de la tarjeta desde donde se quiere traer los resultados siguientes. No inclusivo..
   '/v2/cards/{id}':
     parameters:
       - schema:
@@ -2038,6 +2165,72 @@ paths:
           name: Authorization
           required: true
           description: Llave privada
+    patch:
+      summary: Actualizar Tarjeta
+      operationId: patch-v2-cards-id
+      responses:
+        '200':
+          description: Petición fue exitosa.
+      description: 'Actualizar una Tarjeta te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crearla. Cualquier parámetro o valor no provisto será omitido en los valores de la metadata. Actualmente, también permite actualizar el **ID del token asociado.**'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-type
+          description: application/json
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Llave privada.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token_id:
+                  type: string
+                  description: 'ID del token nuevo a actualizar en la Tarjeta, este es generado previamente en Crear Token.'
+                  example: tkn_live_vEcZSCOVz5PGDPdQ
+                  minLength: 25
+                  maxLength: 25
+                metadata:
+                  type: object
+                  example:
+                    dni: '71701978'
+            examples:
+              example-1:
+                value:
+                  metadata:
+                    dni: '71702323'
+      tags:
+        - Tarjetas
+    delete:
+      summary: Eliminar Tarjeta
+      operationId: delete-v2-cards-id
+      responses:
+        '200':
+          description: La petición fue exitosa.
+      description: 'Eliminar una Tarjeta te permitirá limpiar la cantidad de tarjetas asociadas a un Customer por varios motivos: la tarjeta superó la cantidad de denegaciones esperadas o el cliente es fraudulento y no quieres realizar más cobros a ese cliente, prevenir que tus clientes no paguen una suscripción de la que se han retirado, entre otras cosas. La petición devuelva el objeto Card eliminado.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada.
+      tags:
+        - Tarjetas
 components:
   schemas:
     User:
