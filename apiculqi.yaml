@@ -2562,7 +2562,8 @@ paths:
     parameters: []
     get:
       summary: Listar órdenes
-      tags: []
+      tags:
+        - Ordenes
       responses:
         '200':
           description: La petición fue exitosa
