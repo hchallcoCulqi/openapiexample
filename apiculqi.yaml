@@ -11,8 +11,12 @@ info:
     # Autenticación
     Para poder acceder y utilizar la API de Culqi necesitas previamente obtener tus [Llaves de Autenticación](https://docs.culqi.com/#/cuenta/cuenta#llaves) e incluirlas en cada petición que hagas al API. Podrás encontrar tus llaves en el Panel de [Integración](http://integ-panel.culqi.com/) y [Producción](http://panel.culqi.com/) de Culqi.
     <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
-    Para usar el API de Culqi utiliza autenticación Bearer como se muestra a continuación 
-
+    Para usar el API de Culqi utiliza autenticación Bearer como se muestra a continuación :
+    
+    ```
+    -H "Authorization: Bearer sk_test_UTCQSGcXW8bCyU59"
+    ```  
+    
     # Errores
 
     # Metadata
