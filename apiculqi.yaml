@@ -16,6 +16,7 @@ info:
 
     # Ejemplo
     esto es un ejemplo.
+    <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
 servers:
   - url: 'https://api.culqi.com'
 tags:
