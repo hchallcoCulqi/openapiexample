@@ -41,8 +41,9 @@ tags:
       </br> </br>
       Si no deseas hacer uso de los métodos de tokenización disponibles, también puedes crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa **PCI DSS**, como por ejemplo el [siguiente autocuestionario](https://www.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf). A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no será enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
-      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#operation/crear-cliente) y posteriormente [crear una tarjeta](#operation/crear-tarjeta).
-
+      <div class="box info"><div class="content">Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#operation/crear-cliente) y posteriormente [crear una tarjeta](#operation/crear-tarjeta).</div></div>
+      
+      **Objeto Token:**
       <SchemaDefinition schemaRef="#/components/schemas/Token" />
 
   - name: Cargos
