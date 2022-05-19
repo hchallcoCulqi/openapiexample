@@ -12,11 +12,11 @@ info:
     Para poder acceder y utilizar la API de Culqi necesitas previamente obtener tus [Llaves de Autenticación](https://docs.culqi.com/#/cuenta/cuenta#llaves) e incluirlas en cada petición que hagas al API. Podrás encontrar tus llaves en el Panel de [Integración](http://integ-panel.culqi.com/) y [Producción](http://panel.culqi.com/) de Culqi.
     <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
     Para usar el API de Culqi utiliza autenticación Bearer como se muestra a continuación :
-    
+
     ```
     -H "Authorization: Bearer sk_test_UTCQSGcXW8bCyU59"
     ```  
-    
+
     # Errores
 
     # Metadata
@@ -42,6 +42,9 @@ tags:
       Si no deseas hacer uso de los métodos de tokenización disponibles, también puedes crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa **PCI DSS**, como por ejemplo el [siguiente autocuestionario](https://www.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf). A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no será enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
       - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#operation/crear-cliente) y posteriormente [crear una tarjeta](#operation/crear-tarjeta).
+
+      <SchemaDefinition schemaRef="#/components/schemas/Token" />
+
   - name: Cargos
     description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
   - name: Devoluciones
@@ -2993,3 +2996,169 @@ components:
         - lastName
         - email
         - emailVerified
+    Token:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          object: token
+          id: tkn_live_0CjjdWhFpEAZlxlz
+          type: card
+          email: richard@piedpiper.com
+          creation_date: 1476132639
+          card_number: 442328******1214
+          last_four: '1214'
+          active: true
+          iin:
+            object: iin
+            bin: '442328'
+            card_brand: Visa
+            card_type: credito
+            card_category: platinum
+            issuer:
+              name: Silicon Valley Bank
+              country: United States
+              country_code: US
+              website: 'https://www.svb.com'
+              phone_number: +1.800.774.7390
+            installments_allowed:
+              - 2
+              - 4
+              - 8
+              - 12
+              - 24
+              - 36
+          client:
+            ip: 72.229.28.185
+            ip_country: United States
+            ip_country_code: US
+            browser: Google Chrome 56.0.2924.87
+            device_fingerprint: 6rITdVTYkWfOrss8
+            device_type: escritorio
+          metadata:
+            dni: '5831543'
+      properties:
+        object:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        creation_date:
+          type: integer
+        card_number:
+          type: string
+          minLength: 1
+        last_four:
+          type: string
+          minLength: 1
+        active:
+          type: boolean
+        iin:
+          type: object
+          required:
+            - object
+            - bin
+            - card_brand
+            - card_type
+            - card_category
+            - issuer
+            - installments_allowed
+          properties:
+            object:
+              type: string
+              minLength: 1
+            bin:
+              type: string
+              minLength: 1
+            card_brand:
+              type: string
+              minLength: 1
+            card_type:
+              type: string
+              minLength: 1
+            card_category:
+              type: string
+              minLength: 1
+            issuer:
+              type: object
+              required:
+                - name
+                - country
+                - country_code
+                - website
+                - phone_number
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                country:
+                  type: string
+                  minLength: 1
+                country_code:
+                  type: string
+                  minLength: 1
+                website:
+                  type: string
+                  minLength: 1
+                phone_number:
+                  type: string
+                  minLength: 1
+            installments_allowed:
+              type: array
+              items:
+                type: object
+        client:
+          type: object
+          required:
+            - ip
+            - ip_country
+            - ip_country_code
+            - browser
+            - device_fingerprint
+            - device_type
+          properties:
+            ip:
+              type: string
+              minLength: 1
+            ip_country:
+              type: string
+              minLength: 1
+            ip_country_code:
+              type: string
+              minLength: 1
+            browser:
+              type: string
+              minLength: 1
+            device_fingerprint:
+              type: string
+              minLength: 1
+            device_type:
+              type: string
+              minLength: 1
+        metadata:
+          type: object
+          required:
+            - dni
+          properties:
+            dni:
+              type: string
+              minLength: 1
+      required:
+        - object
+        - id
+        - type
+        - email
+        - creation_date
+        - card_number
+        - last_four
+        - active
+        - iin
+        - client
+        - metadata
