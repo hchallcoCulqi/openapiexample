@@ -25,7 +25,7 @@ tags:
       </br> </br>
       Si no deseas hacer uso de los métodos de tokenización disponibles, también puedes crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa **PCI DSS**, como por ejemplo el [siguiente autocuestionario](https://www.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf). A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no será enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
-      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#operation/post-v2-customers) y posteriormente [crear una tarjeta](#operation/crear-cliente).
+      - Los tokens tienen un tiempo de expiración de 5 minutos por lo que no pueden ser guardados y utilizados más de una vez. Para hacerlos permanentes y generar cargos posteriores o recurrentes, debes [crear un cliente](#operation/crear-cliente) y posteriormente [crear una tarjeta](#operation/crear-tarjeta).
   - name: Cargos
     description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
   - name: Devoluciones
@@ -35,7 +35,7 @@ tags:
   - name: Tarjetas
     description: |
       El objeto Tarjeta se usa para crear cargos posteriores a una tarjeta. Recuerda que un Token por si solo vence a los 5 minutos de creado, pero si lo conviertes en una Tarjeta podrás realizar cargos posteriores. Podrás relacionar múltiples tarjeta al mismo Cliente.
-      Objeto Tarjeta:
+      ##Objeto Tarjeta:
       ```
       {
         "object": "card",
@@ -1852,15 +1852,8 @@ paths:
       tags:
         - Planes
   /v2/cards:
-    get:
-      summary: Crear Tarjeta
-      tags:
-        - Tarjetas
-      responses: {}
-      operationId: consultar-tarjeta
-      description: A la hora de crear una Tarjeta tendrás que relacionar un token con un Cliente que has creado anteriormente para que este pueda ser utilizado para pagos posteriores y suscripciones.
     post:
-      summary: ''
+      summary: Crear Tarjeta
       operationId: crear-tarjeta
       responses:
         '201':
