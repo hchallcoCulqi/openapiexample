@@ -35,7 +35,7 @@ tags:
   - name: Tarjetas
     description: |
       El objeto Tarjeta se usa para crear cargos posteriores a una tarjeta. Recuerda que un Token por si solo vence a los 5 minutos de creado, pero si lo conviertes en una Tarjeta podrás realizar cargos posteriores. Podrás relacionar múltiples tarjeta al mismo Cliente.
-      ###Objeto Tarjeta:
+      Objeto Tarjeta:
       ```json
       {
         "object": "card",
@@ -1957,6 +1957,87 @@ paths:
               required:
                 - customer_id
                 - token_id
+  '/v2/cards/{id}':
+    parameters:
+      - schema:
+          type: string
+          minLength: 25
+          maxLength: 25
+          example: crd_live_QDO81GT6Zaseewkp
+        name: id
+        in: path
+        required: true
+        description: ID de la tarjeta.
+    get:
+      summary: Consultar Tarjeta
+      tags:
+        - Tarjetas
+      responses:
+        '200':
+          description: La petición fue exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    object: card
+                    id: crd_live_RzjTyGUwZioJLpZt
+                    date: 1487044833972
+                    customer_id: cus_live_Lz6Yfsm7QqCPIECW
+                    token:
+                      object: token
+                      id: tkn_live_vEcZSCOVz5PGDPdQ
+                      type: card
+                      creation_date: 1487044809000
+                      card_number: 411111******1111
+                      last_four: '1111'
+                      active: true
+                      iin:
+                        object: iin
+                        bin: '411111'
+                        card_brand: Visa
+                        card_type: credit
+                        card_category: Clásica
+                        issuer:
+                          name: 'JPMORGAN CHASE BANK, N.A.'
+                          country: United States
+                          country_code: PE
+                          website: null
+                          phone_number: null
+                        installments_allowed:
+                          - 2
+                          - 4
+                          - 6
+                          - 8
+                          - 10
+                          - 12
+                      client:
+                        ip: 190.235.231.153
+                        ip_country: Perú
+                        ip_country_code: PE
+                        browser: null
+                        device_fingerprint: null
+                        device_type: null
+                    metadata: null
+      operationId: get-v2-cards-id
+      description: 'Consultar el detalle de una tarjeta utilizando el ID devuelto en la petición para crear una Tarjeta, te permitirá obtener como respuesta todos los parámetros de esta. Si la petición es inválida te devolveremos un error.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada
 components:
   schemas:
     User:
