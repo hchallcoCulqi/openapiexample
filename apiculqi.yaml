@@ -46,9 +46,15 @@ tags:
       # Objeto Token
       <SchemaDefinition schemaRef="#/components/schemas/Token" />
   - name: Cargos
-    description: 'Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.'
+    description: |
+      Para realizar un cargo a una tarjeta de débito o crédito debes crear un objeto cargo. Adicionalmente puedes consultar, devolver un cargo en particular o listar tu historial de cargos en base a los filtros que desees. Todos los cargos están identificados por un ID.
+      # Objeto Cargo
+      <SchemaDefinition schemaRef="#/components/schemas/Cargo" />
   - name: Devoluciones
-    description: Una devolución te permite devolver un cargo que ha sido creado previamente y que aún no ha sido devuelto en su totalidad. Los fondos serán devueltos a la tarjeta de crédito o débito que se ha realizado el cargo.
+    description: |
+      Una devolución te permite devolver un cargo que ha sido creado previamente y que aún no ha sido devuelto en su totalidad. Los fondos serán devueltos a la tarjeta de crédito o débito que se ha realizado el cargo.
+      # Objeto Devolucion
+      <SchemaDefinition schemaRef="#/components/schemas/Devolucion" />
   - name: Clientes
     description: 'El recurso cliente te permite guardar la información de tus clientes para realizarles cargos recurrentes o posteriores. La API de Culqi permite crear, eliminar y actualizar los datos de tus clientes. Adicionalmente podrás consultar los datos de un cliente en particular o listar a todos tus clientes en base a los filtros que desees.'
   - name: Tarjetas
@@ -3213,3 +3219,113 @@ components:
         - active
         - iin
         - client
+    Cargo:
+      title: Cargo
+      type: object
+      properties:
+        id:
+          type: string
+      x-examples:
+        example-1:
+          object: charge
+          id: chr_live_kEazTaQBDtzNdwFr
+          creation_date: 1556206150307
+          amount: 10000
+          amount_refunded: 0
+          current_amount: 10000
+          installments: 0
+          installments_amount: null
+          currency: PEN
+          email: null
+          description: Hooli Phone
+          source:
+            object: token
+            id: tkn_live_0CjjdWhFpEAZlxlz
+            type: card
+            email: richard@piedpiper.com
+            creation_date: 1476132639
+            card_number: 442328******1214
+            last_four: '1214'
+            active: true
+            iin:
+              object: iin
+              bin: '442328'
+              card_brand: Visa
+              card_type: credito
+              card_category: platinum
+              issuer:
+                name: Silicon Valley Bank
+                country: United States
+                country_code: US
+                website: 'https://www.svb.com'
+                phone_number: +1.800.774.7390
+              installments_allowed:
+                - 2
+                - 4
+                - 8
+                - 12
+                - 24
+                - 36
+            client:
+              ip: 72.229.28.185
+              ip_country: United States
+              ip_country_code: US
+              browser: Google Chrome 56.0.2924.87
+              device_fingerprint: 6rITdVTYkWfOrss8
+              device_type: escritorio
+    Devolucion:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          object: refund
+          id: ref_live_TTfLAgaA8nz8PWbO
+          charge_id: chr_live_kEazTaQBDtzNdwFr
+          creation_date: 1556552960000
+          amount: 2000
+          reason: Devolución solicitada por el comercio
+          metadata: {}
+      title: Objeto Devolución
+      properties:
+        object:
+          type: string
+          minLength: 1
+          description: Nombre del objeto.
+          enum:
+            - refund
+        id:
+          type: string
+          minLength: 1
+          description: ID de la devolución.
+          example: ref_live_TTfLAgaA8nz8PWbO
+        charge_id:
+          type: string
+          minLength: 1
+          example: chr_live_kEazTaQBDtzNdwFr
+          description: ID del cargo al que se le aplicó la devolución.
+        creation_date:
+          type: integer
+          description: Fecha de creación de la devolución en UNIX Timestamp.
+          example: 1476132639
+        amount:
+          type: integer
+          example: 1000
+          description: Monto de la devolución en céntimos.
+        reason:
+          type: string
+          minLength: 1
+          description: Razón o motivo de la devolución.
+          enum:
+            - '''Duplicado'''
+            - '''Fraudulento'''
+            - '''Devolución solicitada por el comercio'''
+        metadata:
+          type: object
+          description: Envía parametros adicionales con información
+      required:
+        - object
+        - id
+        - charge_id
+        - creation_date
+        - amount
+        - reason
