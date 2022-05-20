@@ -254,7 +254,7 @@ paths:
             example: '1476132639'
           in: query
           name: creation_date
-          description: Fecha del token en UNIX Timestamp.
+          description: 'Fecha del token en [UNIX Timestamp.](http://www.unixtimestamp.com/)'
         - schema:
             type: string
           in: query
@@ -295,7 +295,7 @@ paths:
             example: '411111'
           in: query
           name: bin
-          description: Primeros seis dígitos de la tarjeta expresado en formato ISO/IEC 7812.
+          description: 'Primeros seis dígitos de la tarjeta expresado en formato [ISO/IEC 7812.](https://es.wikipedia.org/wiki/N%C3%BAmero_de_tarjeta_bancaria)'
         - schema:
             type: string
             example: PE
@@ -381,7 +381,7 @@ paths:
                       device_fingerprint: null
                       device_type: null
       operationId: get-v2-cc
-      description: Consultar el detalle de un token utilizando su respectivo ID te permitirá obtener como respuesta el objeto token solicitado. Si la petición es inválida te devolveremos un error.
+      description: 'Consultar el detalle de un [token](#operation/crear-token) utilizando su respectivo ID te permitirá obtener como respuesta el objeto token solicitado. Si la petición es inválida te devolveremos un [error.](#section/Errores)'
       parameters:
         - schema:
             type: string
