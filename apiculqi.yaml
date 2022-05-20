@@ -99,7 +99,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave pública
+          description: '[Llave pública](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -163,6 +163,7 @@ paths:
                   email: ichard@piedpiper.com
                   metadata:
                     dni: '5831543'
+        description: ''
       responses:
         '201':
           description: La petición exitosa.
@@ -247,7 +248,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
         - schema:
             type: string
             example: '1476132639'
@@ -394,7 +395,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
     parameters:
       - schema:
           type: string
@@ -459,7 +460,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
   /v2/charges:
     post:
       tags:
@@ -566,7 +567,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -678,6 +679,7 @@ paths:
           in: header
           name: Authorization
           required: true
+          description: '[Llave privada](#section/Autenticacion)'
         - schema:
             type: string
             minLength: 300
@@ -771,7 +773,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
       description: 'Consultar el detalle de un cargo utilizando el ID devuelto en la petición de creación, esto te permitirá obtener como respuesta todos los parámetros del objeto cargo.'
     patch:
       summary: Actualizar Cargo
@@ -816,7 +818,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
           required: true
       tags:
         - Cargos
@@ -852,7 +854,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
   /v2/refunds:
     post:
@@ -888,7 +890,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
       description: |-
         Para crear una devolución es necesario que envíes el ID del cargo que deseas devolver. Esta operación retorna los fondos a la tarjeta de crédito o débito de tu cliente y adicionalmente las comisión variable cargada por Culqi.
@@ -963,7 +965,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
         - schema:
             type: string
@@ -1066,7 +1068,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada.](#section/Autenticacion)'
     patch:
       summary: Actualizar Devolución
       operationId: patch-v2-refunds-id
@@ -1089,7 +1091,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada.](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -1149,7 +1151,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
         - schema:
             type: string
@@ -1248,7 +1250,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
       requestBody:
         content:
@@ -1386,7 +1388,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
     patch:
       summary: Actualizar Cliente
@@ -1407,7 +1409,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -1470,7 +1472,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
       tags:
         - Clientes
@@ -1495,7 +1497,7 @@ paths:
             type: string
           in: header
           name: Authorization
-          description: Bearer << llave_privada >>
+          description: '[Llave_privada](#section/Autenticacion)'
         - schema:
             type: integer
             example: Prueba
@@ -1645,7 +1647,7 @@ paths:
             type: string
           in: header
           name: Authorization
-          description: Bearer << llave_privada >>
+          description: '[Llave_privada](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -1767,7 +1769,7 @@ paths:
             type: string
           in: header
           name: Authorization
-          description: Bearer << llave_privada >>
+          description: '[Llave_privada](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -1791,7 +1793,7 @@ paths:
             type: string
           in: header
           name: Authorization
-          description: Bearer << llave_privada >>
+          description: '[Llave_privada](#section/Autenticacion)'
       requestBody:
         content:
           application/json:
@@ -1836,7 +1838,7 @@ paths:
             type: string
           in: header
           name: Authorization
-          description: Bearer << llave_privada >>
+          description: '[Llave_privada](#section/Autenticacion)'
       tags:
         - Planes
   /v2/cards:
@@ -1908,7 +1910,7 @@ paths:
             example: Bearer sk_test_UTCQSGcXW8bCyU59
           in: header
           name: Authorization
-          description: Llave privada
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
       requestBody:
         content:
@@ -1983,7 +1985,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
         - schema:
             type: string
             example: '1476132639'
@@ -2152,7 +2154,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada
+          description: '[Llave privada](#section/Autenticacion)'
     patch:
       summary: Actualizar Tarjeta
       operationId: patch-v2-cards-id
@@ -2171,7 +2173,7 @@ paths:
             type: string
           in: header
           name: Authorization
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
           required: true
       requestBody:
         content:
@@ -2216,7 +2218,7 @@ paths:
           in: header
           name: Authorization
           required: true
-          description: Llave privada.
+          description: '[Llave privada.](#section/Autenticacion)'
       tags:
         - Tarjetas
   /v2/subscriptions:
