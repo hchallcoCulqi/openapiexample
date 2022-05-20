@@ -3281,9 +3281,9 @@ components:
           minLength: 1
           description: Razón o motivo de la devolución.
           enum:
-            - '''Duplicado'''
-            - '''Fraudulento'''
-            - '''Devolución solicitada por el comercio'''
+            - Duplicado
+            - Fraudulento
+            - Devolución solicitada por el comercio
         metadata:
           type: object
           description: Envía parametros adicionales con información
