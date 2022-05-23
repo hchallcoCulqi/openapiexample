@@ -3919,7 +3919,7 @@ components:
         - card
         - metadata
     Metadata:
-      title: Metadata
+      title: Metadata1
       type: object
       #x-examples:
       #  example-1:
