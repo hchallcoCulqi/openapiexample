@@ -3921,18 +3921,18 @@ components:
     Metadata:
       title: Metadata
       type: object
-      x-examples:
-        example-1:
-          amount: 200
-          currency_code: PEN
-          source_id: tkn_live_189fqQ2eZvKYlo2
-          description: Apple Watch Series 20
-          installments: 6
-          capture: true
-          metadata:
-            order_id: '204055'
-            user_id: '4625'
-            user_details: '46734527'
+      #x-examples:
+      #  example-1:
+      #    amount: 200
+      #    currency_code: PEN
+      #    source_id: tkn_live_189fqQ2eZvKYlo2
+      #    description: Apple Watch Series 20
+      #    installments: 6
+      #    capture: true
+      #    metadata:
+      #      order_id: '204055'
+      #      user_id: '4625'
+      #      user_details: '46734527'
       description: 'Aquí te presentamos algunas sugerencias para los valores de metadata:'
       properties:
         order_id:
