@@ -18,7 +18,7 @@ info:
     ```  
 
     # Errores
-
+    esto es un error
     # Metadata 
 
     La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tags/Tokens), [Cargos](), [Planes](), [Suscripciones](), [Devoluciones](), [Tarjetas](), [Clientes]() tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
@@ -3920,7 +3920,7 @@ components:
         - card
         - metadata
     Metadata:
-      title: Metadata1
+      title: Metadata
       type: object      
       description: 'Aquí te presentamos algunas sugerencias para los valores de metadata:'
       properties:
