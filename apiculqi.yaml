@@ -2974,7 +2974,8 @@ paths:
         description: ID del evento a consultar.
     get:
       summary: Consultar Evento
-      tags: []
+      tags:
+        - Eventos
       responses:
         '200':
           description: La petición fue exitosa.
@@ -2997,7 +2998,8 @@ paths:
   /v2/events:
     get:
       summary: Listar Eventos
-      tags: []
+      tags:
+        - Eventos
       responses:
         '200':
           description: La petición fue exitosa.
