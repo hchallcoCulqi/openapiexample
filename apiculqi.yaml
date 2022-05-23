@@ -107,7 +107,14 @@ tags:
     description: |
       El objeto Orden contiene información de una posible venta. Es usado para el método de pago en efectivo. Una vez es pagada la orden por tu cliente via banco o agente, cambia de estado en el momento de la acción. Con este recurso podrás brindar a tus clientes la opción de pagar sus compras en efectivo.
       # Objeto Orden
-      <SchemaDefinition schemaRef="#/components/schemas/Orden" />      
+      <SchemaDefinition schemaRef="#/components/schemas/Orden" />
+  - name: Eventos
+    description: |
+      Los eventos son formas de hacerte saber cuando algo sucede en tu cuenta de Culqi. Cuando un evento ocurre, Culqi crea un objeto Evento. Por ejemplo, cuando un cargo es exitoso, Culqi crea el evento charge.succeeded. Adicionalmente, si realizas muchas peticiones al API podría llegar a causar multiples eventos. Por ejemplo, si creas una suscripción para un cliente, recibirás el evento customer.subscription.created y el evento charge.succeeded.
+
+      Al igual que los otros recursos del API, puedes consultar un evento particular o listar una serie de eventos directamente desde el API. Adicionalmente, hemos construido un sistema automatizado que enviará eventos directamente a tu servidor: webhooks. Te reconedamos que revises nuestra guía de webhooks para que sepas como configurarlos.
+      # Objeto Evento
+      <SchemaDefinition schemaRef="#/components/schemas/Evento" />
 paths:
   /v2/tokens:
     post:
@@ -2954,6 +2961,108 @@ paths:
           description: Bearer << llave_privada >>
       tags:
         - Ordenes
+  '/v2/events/{id}':
+    parameters:
+      - schema:
+          type: string
+          example: evt_live_0CjjdWhFpEAZlxlz
+          minLength: 25
+          maxLength: 25
+        name: id
+        in: path
+        required: true
+        description: ID del evento a consultar.
+    get:
+      summary: Consultar Evento
+      tags: []
+      responses:
+        '200':
+          description: La petición fue exitosa.
+      operationId: consultar-evento
+      description: Devuelve los detalles de un Evento en particular. Para la petición solo debes enviar el ID del Evento que Culqi te devolvió en el Webhook. Todos los eventos comparten una estructura común y la única propiedad que es diferente es el parámetro data.
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada.
+  /v2/events:
+    get:
+      summary: Listar Eventos
+      tags: []
+      responses:
+        '200':
+          description: La petición fue exitosa.
+      operationId: listar-eventos
+      description: 'Listar eventos te permitirá obtener una serie de eventos existentes. De acuerdo a los filtros que uses, los diferentes eventos serán ordenados de acuerdo a su fecha de creación; siendo el primero el más reciente.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          required: true
+          description: Llave privada.
+        - schema:
+            type: string
+            example: charge.creation.succeeded (cargos exitosos)
+          in: query
+          name: type
+          description: Tipo de evento a filtrar.
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date
+          description: 'Fecha del evento en [UNIX Timestamp](http://www.unixtimestamp.com/)'
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date_from
+          description: 'Fecha inicial de los eventos en [UNIX Timestamp.](http://www.unixtimestamp.com/)'
+        - schema:
+            type: string
+            example: '1476132639'
+          in: query
+          name: creation_date_to
+          description: 'Fecha limite de los eventos en [UNIX Timestamp.](http://www.unixtimestamp.com/)'
+        - schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+            example: '50'
+          in: query
+          name: limit
+          description: Cantidad exacta de eventos que se quieren listar.
+        - schema:
+            type: string
+            example: evt_live_7lYOtONQ9LxcgJUW
+          in: query
+          name: before
+          description: El ID del evento desde donde se quiere traer la página anterior. No inclusivo.
+        - schema:
+            type: string
+            example: evt_live_7lYOtOMM6LxcgJUW
+            minLength: 25
+            maxLength: 25
+          in: query
+          name: after
+          description: El ID del evento desde donde se quiere traer la siguiente página. No inclusivo.
 components:
   schemas:
     User:
@@ -3921,7 +4030,7 @@ components:
         - metadata
     Metadata:
       title: Metadata
-      type: object      
+      type: object
       description: 'Aquí te presentamos algunas sugerencias para los valores de metadata:'
       properties:
         order_id:
@@ -3933,3 +4042,30 @@ components:
         user_details:
           type: object
           description: Adjunta datos adicionales sobre tu cliente.
+    Evento:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          object: event
+          type: charged.failed
+          data: {}
+      properties:
+        object:
+          type: string
+          description: Nombre del objeto.
+          example: tkn_
+          minLength: 25
+          maxLength: 25
+        type:
+          type: string
+          minLength: 1
+          description: Identifica si es un cargo repetido.
+        data:
+          type: object
+          description: Objeto que contiene al recurso.
+      required:
+        - object
+        - type
+        - data
+      title: Objeto Evento
