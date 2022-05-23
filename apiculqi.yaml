@@ -20,7 +20,8 @@ info:
     # Errores
 
     # Metadata 
-    La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo Tokens, Cargos, Planes, Suscripciones, Devoluciones, Tarjetas, Clientes tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
+
+    La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tags/Tokens), [Cargos](), [Planes](), [Suscripciones](), [Devoluciones](), [Tarjetas](), [Clientes]() tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
 
     Por ejemplo, en el parámetro metadata del recurso Clientes podrías guardar el nombre completo de tu cliente, su número de documento de identidad y su fecha de nacimiento. La metadata no es utilizada por Culqi para analizar, realizar o rechazar un cargo.
 
@@ -3920,19 +3921,7 @@ components:
         - metadata
     Metadata:
       title: Metadata1
-      type: object
-      #x-examples:
-      #  example-1:
-      #    amount: 200
-      #    currency_code: PEN
-      #    source_id: tkn_live_189fqQ2eZvKYlo2
-      #    description: Apple Watch Series 20
-      #    installments: 6
-      #    capture: true
-      #    metadata:
-      #      order_id: '204055'
-      #      user_id: '4625'
-      #      user_details: '46734527'
+      type: object      
       description: 'Aquí te presentamos algunas sugerencias para los valores de metadata:'
       properties:
         order_id:
