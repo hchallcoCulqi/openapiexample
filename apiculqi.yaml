@@ -20,7 +20,7 @@ info:
     esto es un error
 
     # Metadata
-    La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](), [Clientes]() tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
+    La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](#tag/Tarjetas), [Clientes](#tag/Tarjetas) tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
 
     Por ejemplo, en el parámetro metadata del recurso Clientes podrías guardar el nombre completo de tu cliente, su número de documento de identidad y su fecha de nacimiento. La metadata no es utilizada por Culqi para analizar, realizar o rechazar un cargo.
 
@@ -3959,7 +3959,7 @@ components:
           example: 1476132639
         charges:
           type: object
-          description: 'Listado de [cargos](#section/tok) realizados durante todos los ciclos.'
+          description: 'Listado de [cargos](#tag/Cargos) realizados durante todos los ciclos.'
         plan:
           type: object
           description: Información del objeto plan utilizado para crear una suscripción.
@@ -4002,18 +4002,7 @@ components:
         user_details:
           type: object
           description: Adjunta datos adicionales sobre tu cliente.
-      x-examples:
-        example-1:
-          amount: 200
-          currency_code: PEN
-          source_id: tkn_live_189fqQ2eZvKYlo2
-          description: Apple Watch Series 20
-          installments: 6
-          capture: true
-          metadata:
-            order_id: '204055'
-            user_id: '4625'
-            user_details: '46734527'
+      x-examples: {}
     Evento:
       description: ''
       type: object
