@@ -53,15 +53,16 @@ info:
 
     # ID de Rastreo
     Cada petición al API está asociada a un identificador de rastreo. Puedes encontrar este valor en los headers de respuesta, bajo el nombre de x-culqi-tracking-id, también lo puedes encontrar en el Panel de Culqi y en el detalle de cada petición.
-    
+
     :::attention
     Si necesitas ayuda con alguna petición en específico, brindando este ID de rastreo hará más fácil la ubicación y posterior solución del problema o incidencia.
     :::
-    
+
     <div class="box info"><div class="content">Si necesitas ayuda con alguna petición en específico, brindando este ID de rastreo hará más fácil la ubicación y posterior solución del problema o incidencia.</div></div>
-    ___
+    _______
 
     **Ejemplo de Headers de Respuesta:**
+    </br>
     </br>
     Headers:
     ```json Headers
@@ -71,6 +72,13 @@ info:
     "x-culqi-version": "17.01.89",
     "content-type": "application/json"
     ```
+    Atributos:
+    <SchemaDefinition schemaRef="#/components/parameters/date" />
+    <SchemaDefinition schemaRef="#/components/parameters/x-culqi-environment" />
+    <SchemaDefinition schemaRef="#/components/parameters/x-culqi-tracking-id" />
+    <SchemaDefinition schemaRef="#/components/parameters/x-culqi-version" />
+    <SchemaDefinition schemaRef="#/components/parameters/content-type" />
+    
 
     # Versionado
 
@@ -4047,3 +4055,54 @@ components:
         - type
         - data
       title: Objeto Evento
+    Rastreo:
+      title: Rastreo
+      x-stoplight:
+        id: e0wb2wf8catoj
+      type: object
+      properties:
+        id:
+          type: string
+  parameters:
+    date:
+      name: date
+      in: header
+      required: true
+      schema:
+        type: string
+      description: 'Fecha en la que se creó la petición en [UNIX Timestamp.](http://www.unixtimestamp.com/)'
+    x-culqi-environment:
+      name: x-culqi-environment
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+          - live
+          - test
+      description: 'Entorno al que se realizó la petición. [Ver más.](https://docs.culqi.com/#/cuenta/cuenta#entornos)'
+    x-culqi-tracking-id:
+      name: x-culqi-tracking-id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: '9283'
+      description: Código de identificación de la petición.
+    x-culqi-version:
+      name: x-culqi-version
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 17.01.89
+      description: Número de versión del API.
+    content-type:
+      name: content-type
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+          - applcation/json
+      description: FormFecha en la que se creó la petición en UNIX Timestamp.ato de contenido de la respuesta.
