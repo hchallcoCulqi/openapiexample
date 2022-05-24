@@ -15,8 +15,7 @@ info:
 
     ```
     -H "Authorization: Bearer sk_test_UTCQSGcXW8bCyU59"
-    ```  
-
+    ```
     # Errores
     esto es un error
     
@@ -37,7 +36,7 @@ info:
       "description":"Apple Watch Series 20",
       "installments":6,
       "capture":true,
-      "metadata":{
+      "metadata": {
           "order_id":"204055",
           "user_id":"4625",
           "user_details":"46734527"
