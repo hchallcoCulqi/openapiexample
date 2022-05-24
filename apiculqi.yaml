@@ -4000,7 +4000,7 @@ components:
           description: Adjunta un identificador del cliente de tu sistema.
         user_details:
           type: object
-          description: Adjunta datos adicionales sobre tu cliente.
+          description: Adjunta datos adicionales sobre tu cliente 100.
     Evento:
       description: ''
       type: object
