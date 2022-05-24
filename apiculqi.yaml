@@ -59,6 +59,17 @@ info:
     :::
     
     <div class="box info"><div class="content">Si necesitas ayuda con alguna petición en específico, brindando este ID de rastreo hará más fácil la ubicación y posterior solución del problema o incidencia.</div></div>
+    ___
+
+    **Ejemplo de Headers de Respuesta:**
+    
+    ```json Headres
+    "date": "1476132639",
+    "x-culqi-environment": "live",
+    "x-culqi-tracking-id": "9283",
+    "x-culqi-version": "17.01.89",
+    "content-type": "application/json"
+    ```
 
     # Versionado
 
