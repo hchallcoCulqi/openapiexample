@@ -62,8 +62,9 @@ info:
     ___
 
     **Ejemplo de Headers de Respuesta:**
-    
-    ```json Headres
+    </br>
+    Headers:
+    ```json Headers
     "date": "1476132639",
     "x-culqi-environment": "live",
     "x-culqi-tracking-id": "9283",
