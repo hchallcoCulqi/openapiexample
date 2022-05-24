@@ -3990,17 +3990,17 @@ components:
         - metadata
     Metadata:
       title: Metadata
-      type: object      
+      type: object
       properties:
         order_id:
           type: object
-          description: Adjunta un número de pedido incremental.
+          description: 'Adjunta un número de pedido incremental. Ejemplo: {''order_id'':''204055''}'
         user_id:
           type: object
-          description: Adjunta un identificador del cliente de tu sistema.
+          description: 'Adjunta un identificador del cliente de tu sistema. Ejemplo: {''user_id:''4625''}'
         user_details:
           type: object
-          description: Adjunta datos adicionales sobre tu cliente 100.
+          description: 'Adjunta datos adicionales sobre tu cliente 100. Ejemplo : {''dni'':''46734527''}'
     Evento:
       description: ''
       type: object
