@@ -91,7 +91,7 @@ info:
     | v1.2 | 23-08-2016 | [API 1.2](https://culqi.api-docs.io/v1.2) |
     | v1.0 | 01-09-2015	| Descontinuada |
 
-    ## Historial de Cambios
+    **Historial de Cambios**
     </br>
     **07-03-2017**
       - Se añadió el parámetro 'validate' para validar tarjeta en [Crear Tarjeta](#operation/crear-tarjeta) (Tarjetas).
@@ -127,9 +127,49 @@ info:
     **Lista de Eventos Devoluciones**
     | Evento | Descripción |
     | --- | --- |
-    |  |  | 
-    |  |  |
-    |  |  |
+    | refund.creation.succeeded | La devolución ha sido procesada con éxito. | 
+    | refund.creation.failed | La devolución no pudo ser procesada. |
+    | refund.update.succeeded | La información de la devolución fue actualizada. |
+    | refund.update.failed | La información de la devolución no pudo ser actualizada. |
+    
+    **Lista de Eventos Clientes**
+    | Evento | Descripción |
+    | --- | --- |
+    | customer.creation.succeeded | El cliente fue creado con éxito. | 
+    | customer.creation.failed | El cliente no pudo ser creado. |
+    | customer.delete.succeeded | El cliente ha sido eliminado con éxito. |
+    | customer.delete.failed | El cliente no pudo ser eliminado. |
+
+    **Lista de Eventos Tarjetas**
+    | Evento | Descripción |
+    | --- | --- |
+    | card.creation.succeeded | La tarjeta fue creada con éxito. |
+    | card.creation.failed | La tarjeta no pudo ser creada. |
+    | card.updated.succeeded | La información de la tarjeta fue actualizada con éxito. |
+    | card.updated.failed | La información de la tarjeta no pudo ser actualizada. |
+    | card.delete.succeeded | La tarjeta fue eliminada con éxito. |
+    | card.delete.failed | La tarjeta no pudo ser eliminada. |
+
+    **Lista de Eventos Planes**
+    | Evento | Descripción |
+    | --- | --- |
+    | plan.creation.succeeded	| El plan fue creado con éxito. |
+    | plan.creation.failed | El plan no pudo ser creado. |
+    | plan.update.succeeded | La información del plan fue actualizada con éxito. |
+    | plan.update.failed | La información del plan no pudo ser actualizada. |
+    | plan.delete.succeeded | El plan fue eliminado con éxito. |
+    | plan.delete.failed | El plan no pudo ser eliminado. |
+
+    **Lista de Eventos Suscripciones**
+    | Evento | Descripción |
+    | --- | --- |
+    | subscription.creation.succeeded	| La suscripción fue creada con éxito. |
+    | subscription.creation.failed | La suscripción no pudo ser creada. |
+    | subscription.update.succeeded | La información de la suscripción fue actualizada con éxito. |
+    | subscription.update.failed | La información de la suscripción no pudo ser actualizada. |
+    | subscription.cancel.succeeded | La suscripción ha sido cancelada con éxito. |
+    | subscription.cancel.failed | La suscripción no pudo ser cancelada. |
+
     # Ejemplo
     esto es un ejemplo.
     <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
