@@ -96,6 +96,7 @@ info:
     07-03-2017
     - Se añadió el parámetro 'validate' para validar tarjeta en Crear Tarjeta (Tarjetas).
     - Se añadió el parámetro 'token_id' en Actualizar Tarjeta (Tarjetas).
+    </br>
     15-02-2017
     - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
     - Se añadió el filtro de metadata en las operaciones de listado.
