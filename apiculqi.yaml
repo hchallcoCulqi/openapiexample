@@ -78,10 +78,27 @@ info:
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-tracking-id" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-version" />
     <SchemaDefinition schemaRef="#/components/parameters/content-type" />
-    
+
 
     # Versionado
+    Cuando realizamos cambios al API de Culqi que afectan la compatibilidad con versiones anteriores, realizamos lanzamientos de nuevas modificaciones de manera versionada. La última versión fue lanzada el 08-02-2017.
+    
+    <div class="box info"><div class="content">Los eventos generados por las peticiones al API estarán siempre estructurados de acuerdo a tu versión del API.</div></div>
 
+    | Versión API | Fecha | Docs  |
+    | --- | ----------- | ----- |
+    | v2.0 | 08-02-2017 | API 2.0 |
+    | v1.2 | 23-08-2016 | API 1.2 |
+    | v1.0 | 01-09-2015	| Descontinuada |
+
+    **Historial de Cambios**
+    </br></br>
+    07-03-2017
+    - Se añadió el parámetro 'validate' para validar tarjeta en Crear Tarjeta (Tarjetas).
+    - Se añadió el parámetro 'token_id' en Actualizar Tarjeta (Tarjetas).
+    15-02-2017
+    - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
+    - Se añadió el filtro de metadata en las operaciones de listado.
     # Webhooks
 
     # Ejemplo
@@ -4061,7 +4078,9 @@ components:
         id: e0wb2wf8catoj
       type: object
       properties:
-        id:
+        date:
+          type: string
+        '':
           type: string
   parameters:
     date:
@@ -4106,3 +4125,13 @@ components:
         enum:
           - applcation/json
       description: FormFecha en la que se creó la petición en UNIX Timestamp.ato de contenido de la respuesta.
+  examples:
+    ExRastreo:
+      value:
+        description: Example shared example
+        type: object
+        properties:
+          id:
+            type: string
+        required:
+          - id
