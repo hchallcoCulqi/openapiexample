@@ -16,12 +16,12 @@ info:
     ```
     -H "Authorization: Bearer sk_test_UTCQSGcXW8bCyU59"
     ```  
-    
+
     # Errores
     esto es un error
     
     # Metadata
-    La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tags/Tokens), [Cargos](), [Planes](), [Suscripciones](), [Devoluciones](), [Tarjetas](), [Clientes]() tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
+    La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](), [Clientes]() tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
 
     Por ejemplo, en el parámetro metadata del recurso Clientes podrías guardar el nombre completo de tu cliente, su número de documento de identidad y su fecha de nacimiento. La metadata no es utilizada por Culqi para analizar, realizar o rechazar un cargo.
 
