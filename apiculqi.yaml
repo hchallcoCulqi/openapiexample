@@ -3990,8 +3990,7 @@ components:
         - metadata
     Metadata:
       title: Metadata
-      type: object
-      x-examples: {}
+      type: object      
       properties:
         order_id:
           type: object
