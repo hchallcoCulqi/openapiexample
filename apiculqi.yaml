@@ -170,6 +170,12 @@ info:
     | subscription.cancel.succeeded | La suscripción ha sido cancelada con éxito. |
     | subscription.cancel.failed | La suscripción no pudo ser cancelada. |
 
+    **Lista de Eventos Órdenes**
+    | Evento | Descripción |
+    | --- | --- |
+    | order.status.changed	| La orden cambió de estado. Ver los ejemplos de cambios de estado de órdenes [aquí.](https://docs.culqi.com/#/multipagos/pruebas) |
+    | order.creation.succeeded | La orden fue creada con éxito. |
+    
     # Ejemplo
     esto es un ejemplo.
     <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
