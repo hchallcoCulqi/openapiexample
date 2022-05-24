@@ -92,15 +92,14 @@ info:
     | v1.0 | 01-09-2015	| Descontinuada |
 
     **Historial de Cambios**
-    </br>
+    <br/>
     **07-03-2017**
-      - Se añadió el parámetro 'validate' para validar tarjeta en [Crear Tarjeta](#operation/crear-tarjeta) (Tarjetas).
-      - Se añadió el parámetro 'token_id' en [Actualizar Tarjeta](#operation/actualizar-tarjeta) (Tarjetas).
+    + Se añadió el parámetro 'validate' para validar tarjeta en [Crear Tarjeta](#operation/crear-tarjeta) (Tarjetas).
+    + Se añadió el parámetro 'token_id' en [Actualizar Tarjeta](#operation/actualizar-tarjeta) (Tarjetas).
     
-    </br>
     **15-02-2017**
-      - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
-      - Se añadió el filtro de metadata en las operaciones de listado.
+    - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
+    - Se añadió el filtro de metadata en las operaciones de listado.
 
     # Webhooks
     Para usar los eventos listados debes leer nuestra [guía de integración de Webhooks.](https://docs.culqi.com/#/desarrollo/webhooks)
