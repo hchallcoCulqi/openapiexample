@@ -93,14 +93,41 @@ info:
 
     ## Historial de Cambios
     </br>
-    - 07-03-2017
+    - **07-03-2017**
       - Se añadió el parámetro 'validate' para validar tarjeta en [Crear Tarjeta](#operation/crear-tarjeta) (Tarjetas).
       - Se añadió el parámetro 'token_id' en [Actualizar Tarjeta](#operation/actualizar-tarjeta) (Tarjetas).
-    - 15-02-2017
+    - **15-02-2017**
       - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
       - Se añadió el filtro de metadata en las operaciones de listado.
     # Webhooks
-
+    Para usar los eventos listados debes leer nuestra [guía de integración de Webhooks.](https://docs.culqi.com/#/desarrollo/webhooks)
+    **Lista de Eventos Tokens**
+    | Evento | Descripción |
+    | --- | --- |
+    | token.creation.succeeded | El token fue creado con éxito. |     
+    | token.creation.failed | El token no pudo ser creado. |
+    | token.expired | El token ha expirado y no puede ser usado para realizar un cargo. |
+    | token.update.succeeded | La información del token fue actualizada. |
+    | token.update.failed | La información del token no pudo ser actualizada. |
+    
+    **Lista de Eventos Cargos**
+    
+    | Evento | Descripción |
+    | --- | --- |
+    | charge.creation.succeeded | El cargo fue procesado con éxito. |     
+    | charge.creation.failed | El cargo no pudo ser procesado y ha sigo denegado. |
+    | charge.expired | El cargo ha expirado y el monto de la venta devuelto a la tarjeta del cliente. |
+    | charge.update.succeeded | El cargo fue procesado con éxito. |
+    | charge.update.fail | La información del cargo no pudo ser actualizada. |
+    | charge.capture.succeeded | El cargo fue capturado. |
+    | charge.capture.failed | El cargo no pudo ser capturado. |
+    
+    **Lista de Eventos Devoluciones**
+    | Evento | Descripción |
+    | --- | --- |
+    |  |  | 
+    |  |  |
+    |  |  |
     # Ejemplo
     esto es un ejemplo.
     <div class="box warning"><div class="content">Ten en cuenta que es información muy sensible y no puedes compartirlas con nadie.</div></div>
