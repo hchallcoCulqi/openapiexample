@@ -87,19 +87,20 @@ info:
 
     | Versión API | Fecha | Docs  |
     | --- | ----------- | ----- |
-    | v2.0 | 08-02-2017 | API 2.0 |
-    | v1.2 | 23-08-2016 | API 1.2 |
+    | v2.0 | 08-02-2017 | [API 2.0](https://apidocs.culqi.com/) |
+    | v1.2 | 23-08-2016 | [API 1.2](https://culqi.api-docs.io/v1.2) |
     | v1.0 | 01-09-2015	| Descontinuada |
 
     **Historial de Cambios**
     </br></br>
     07-03-2017
-    - Se añadió el parámetro 'validate' para validar tarjeta en Crear Tarjeta (Tarjetas).
-    - Se añadió el parámetro 'token_id' en Actualizar Tarjeta (Tarjetas).
+      - Se añadió el parámetro 'validate' para validar tarjeta en [Crear Tarjeta](#operation/crear-tarjeta) (Tarjetas).
+      - Se añadió el parámetro 'token_id' en [Actualizar Tarjeta](#operation/actualizar-tarjeta) (Tarjetas).
+    
     </br>
     15-02-2017
-    - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
-    - Se añadió el filtro de metadata en las operaciones de listado.
+      - Se limitó el Content-Type que consumen y producen los endpoint a application/json.
+      - Se añadió el filtro de metadata en las operaciones de listado.
     # Webhooks
 
     # Ejemplo
@@ -2242,7 +2243,7 @@ paths:
           description: '[Llave privada](#section/Autenticacion)'
     patch:
       summary: Actualizar Tarjeta
-      operationId: patch-v2-cards-id
+      operationId: actualizar-tarjeta
       responses:
         '200':
           description: Petición fue exitosa.
