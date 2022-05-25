@@ -79,6 +79,9 @@ info:
     "content-type": "application/json"
     ```
     Atributos:
+    
+    <SchemaDefinition schemaRef="#/components/schemas/Rastreo" hideSamples={false} />
+    
     <SchemaDefinition schemaRef="#/components/parameters/date" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-environment" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-tracking-id" />
