@@ -16,6 +16,9 @@ info:
     ```
     -H "Authorization: Bearer sk_test_UTCQSGcXW8bCyU59"
     ```
+    
+    Todas las peticiones al API deben ser hechas bajo el protocolo de transferencia [HTTPS.](https://es.wikipedia.org/wiki/Hypertext_Transfer_Protocol_Secure) Las llamadas hechas bajo el protocolo HTTP plano fallarán en el [entorno de producción](https://docs.culqi.com/#/cuenta/cuenta) al igual que las peticiones sin autenticación.
+    
     # Errores
     
     
