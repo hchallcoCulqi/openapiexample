@@ -82,6 +82,14 @@ info:
     
     <SchemaDefinition schemaRef="#/components/schemas/Rastreo" hideSamples={false} />
     
+    | Parámetro |  | Tipo | Descripcion |
+    | --- | --- | --- | --- |
+    | date <br/> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | | string | Fecha en la que se creó la petición en [UNIX Timestamp.](http://www.unixtimestamp.com/)<br/>Ejemplo: "1476132639" |
+    | x-culqi-environment| | string | Fecha en la que se creó la petición en [UNIX Timestamp.](http://www.unixtimestamp.com/)<br/>Ejemplo: "live"<br/>Posibles valores:  live, test |
+    | x-culqi-tracking-id| | string | Código de identificación de la petición.<br/>Ejemplo: "9283" |
+    | x-culqi-version| | string | Número de versión del API.<br/>Ejemplo: "17.01.89" |
+    | content-type| | string | Formato de contenido de la respuesta.<br/>Valor:  applcation/json |
+    
     <SchemaDefinition schemaRef="#/components/parameters/date" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-environment" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-tracking-id" />
