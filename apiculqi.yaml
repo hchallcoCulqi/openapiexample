@@ -18,22 +18,6 @@ info:
     ```
     # Errores
     
-    <JsonSchema
-      schema={{
-        type: 'object',
-        description: 'A representation of a cat',
-        properties: {
-          huntingSkill: {
-            type: 'string',
-            description: 'The measured skill for hunting',
-            default: 'lazy',
-            example: 'adventurous',
-            enum: ['clueless', 'lazy', 'adventurous', 'aggressive'],
-          },
-        },
-        required: ['huntingSkill'],
-      }}
-    />
     
     # Metadata
     La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](#tag/Tarjetas), [Clientes](#tag/Tarjetas) tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
@@ -63,6 +47,23 @@ info:
     <SchemaDefinition schemaRef="#/components/schemas/Metadata" hideSamples={false}/>
     <SchemaDefinition pointer="#/components/requestBodies/Metadata" />    
     <OpenApiRequestBody definitionId="Metadata" pointer="#/components/requestBodies/Metadata" hideSamples={false} />  
+
+    <JsonSchema
+      schema={{
+        type: 'object',
+        description: 'A representation of a cat',
+        properties: {
+          huntingSkill: {
+            type: 'string',
+            description: 'The measured skill for hunting',
+            default: 'lazy',
+            example: 'adventurous',
+            enum: ['clueless', 'lazy', 'adventurous', 'aggressive'],
+          },
+        },
+        required: ['huntingSkill'],
+      }}
+    />
 
     # Paginación
     Todos los recursos principales de Culqi soportan operaciones de listado, entre ellos Tokens, Cargos, Transferencias, Tarjetas, Clientes, Suscripciones, Devoluciones y Planes. Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
