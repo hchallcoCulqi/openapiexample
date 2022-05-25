@@ -44,7 +44,7 @@ info:
     }
     ```
     Aquí te presentamos algunas sugerencias para los valores de *metadata:*
-    <SchemaDefinition schemaRef="#/components/schemas/Metadata" />
+    <SchemaDefinition schemaRef="#/components/schemas/Metadata" hideSamples={false}/>
     <SchemaDefinition pointer="#/components/requestBodies/Metadata" />    
     <OpenApiRequestBody definitionId="Metadata" pointer="#/components/requestBodies/Metadata" hideSamples={false} />  
 
