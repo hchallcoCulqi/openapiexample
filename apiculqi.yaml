@@ -48,23 +48,6 @@ info:
     <SchemaDefinition pointer="#/components/requestBodies/Metadata" />    
     <OpenApiRequestBody definitionId="Metadata" pointer="#/components/requestBodies/Metadata" hideSamples={false} />  
 
-    <JsonSchema
-      schema={{
-        type: 'object',
-        description: 'A representation of a cat',
-        properties: {
-          huntingSkill: {
-            type: 'string',
-            description: 'The measured skill for hunting',
-            default: 'lazy',
-            example: 'adventurous',
-            enum: ['clueless', 'lazy', 'adventurous', 'aggressive'],
-          },
-        },
-        required: ['huntingSkill'],
-      }}
-    />
-
     # Paginación
     Todos los recursos principales de Culqi soportan operaciones de listado, entre ellos Tokens, Cargos, Transferencias, Tarjetas, Clientes, Suscripciones, Devoluciones y Planes. Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
 
@@ -96,6 +79,8 @@ info:
     "content-type": "application/json"
     ```
     Atributos:
+    <SchemaDefinition schemaRef="#/components/schemas/Rastreo" hideSamples={false}/>
+
     <SchemaDefinition schemaRef="#/components/parameters/date" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-environment" />
     <SchemaDefinition schemaRef="#/components/parameters/x-culqi-tracking-id" />
@@ -4169,15 +4154,36 @@ components:
         - data
       title: Objeto Evento
     Rastreo:
-      title: Rastreo
-      x-stoplight:
-        id: e0wb2wf8catoj
-      type: object
+      type: object     
       properties:
         date:
           type: string
-        '':
+          description: Fecha en la que se creó la petición en UNIX Timestamp.
+          example: '1476132639'
+        x-culqi-environment:
           type: string
+          description: Entorno al que se realizó la petición. Ver más.
+          enum:
+            - live
+            - test
+        x-culqi-tracking-id:
+          type: string
+          description: Código de identificación de la petición.
+        x-culqi-version:
+          type: string
+          description: Número de versión del API.
+          example: 17.01.89
+        content-type:
+          type: string
+          description: Formato de contenido de la respuesta.
+          enum:
+            - applcation/json
+      required:
+        - date
+        - x-culqi-environment
+        - x-culqi-tracking-id
+        - x-culqi-version
+        - content-type
     Error:
       title: Objecto Error
       x-stoplight:
