@@ -103,6 +103,51 @@ info:
     
     # Errores
     
+    Por medio de nuestra API, podrás ser notificado con toda la información en caso presentes un error al momento de hacer una petición a cualquier operación del API. La API de Culqi utiliza el estándar de Códigos de Estado HTTP (HTTP Status Codes) en todas sus respuestas para indicar si las solicitudes se pudieron procesar con éxito o fallaron.
+
+    ## Objeto Error
+
+    <SchemaDefinition schemaRef="#/components/schemas/Objecto" />
+
+    ## Códigos HTTP
+
+    Culqi usa los siguientes códigos de estado HTTP en sus respuestas:
+
+    | Código | HTTP Status | Descripción                         | |--------|-------------|-------------------------------------| | 200    | OK          | Todo ha salido a la perfección.     | | 201    | Created     | Un nuevo recurso ha sido creado. (POST).     | | 204    | No Content  | El recurso fue exitosamente eliminado. (DELETE)     | | 400    | Bad Request          | La petición al servidor no ha podido ser procesada debido a una sintáxis incorrecta.     | | 401    | Unauthorized          | La llave API utilizada es inválida.     | | 402    | Payment Required	          | El pago no pudo ser procesado.     | | 404    | Not Found          | 	El recurso solicitado en la llamada no existe.     | | 422    | Unprocessable Entity          | La sintaxis de la llamada es válida pero la información dentro de los parámetros es inválida.     | | 500 y 503    | Server Errors          | 	Error en los servidores Culqi y la petición no pudo ser procesada.     |
+
+    ## Tipos de Errores
+
+    Culqi devuelve los siguientes tipos de errores relacionados con los códigos de estado HTTP en sus respuestas:
+
+    | Type| HTTP Status Code - Descripción | |--------|-------------| | invalid_request_error| HTTP 400 - La petición tiene una sintaxis inválida.| | authentication_error| HTTP 401 - La petición no pudo ser procesada debido a problemas con las llaves.| | parameter_error| HTTP 422 - Algún parámetro de cualquier petición es inválido.| | card_error| HTTP 402 - No se pudo realizar el cargo a una tarjeta.| | limit_api_error| HTTP 429 - Estás haciendo muchas peticiones rápidamente al API o superaste tu límite designado.| | resource_error| HTTP 404 - El recurso no puede ser encontrado, es inválido o tiene un estado diferente al permitido.| | api_error| HTTP 500 y 503 - Engloba cualquier otro tipo de error (Ejemplo: problema temporal con los servidores de Culqi) y debería de ocurrir muy pocas veces.|
+
+    ## Codigos de Denegación de Bancos
+
+    Culqi devuelve los siguientes tipos de denegaciones devueltas por los bancos:
+
+    | Decline Code	| Explicación | |--------|-------------| | expired_card	| Tarjeta vencida. La tarjeta está vencida o la fecha de vencimiento ingresada es incorrecta.| | stolen_card| Tarjeta robada. La tarjeta fue bloqueada y reportada al banco emisor como una tarjeta robada| | lost_card| Tarjeta perdida. La tarjeta fue bloqueada y reportada al banco emisor como una tarjeta perdida.| | insufficient_funds| Fondos insuficientes. La tarjeta no tiene fondos suficientes para realizar la compra.| | contact_issuer| Contactar emisor. La operación fue denegada por el banco emisor de la tarjeta y el cliente necesita contactarse con la entidad para conocer el motivo.| | invalid_cvv| CVV inválido. El código de seguridad (CVV2, CVC2, CID) de la tarjeta es inválido.| | too_many_attempts_cvv| Exceso CVV. El cliente ha intentado demasiadas veces ingresar el código de seguridad (CVV2, CVC2, CID) de la tarjeta.| | issuer_not_available| Emisor no disponible. El banco que emitió la tarjeta no responde. El cliente debe realizar el pago nuevamente.| | issuer_decline_operation| Operación denegada. La operación fue denegada por el banco emisor de la tarjeta por una razón desconocida.| |invalid_card| Tarjeta inválida. La tarjeta utilizada tiene restricciones para este tipo de compras. El cliente necesita contactarse con el banco emisor para conocer el motivo de la denegación.| |processing_error| Error de procesamiento. Ocurrió un error mientras procesabamos la compra. Contáctate con culqi.com/soporte para que te demos una solución.| |fraudulent| Operación fraudulenta. El banco emisor de la tarjeta sospecha que se trata de una compra fraudulenta.| |culqi_card| Tarjeta Culqi. Estás utilizando una tarjeta de pruebas de Culqi para realizar una compra real.| |soft_block| Tarjeta con bloqueo temporal por reintentos. El cliente debe intentar nuevamente con otra tarjeta.|
+
+    ## Casos de Errores
+
+    A continuación te presentamos una serie de ejemplos de errores comunes a la hora de integrar la API de Culqi.
+
+    #### Petición Inválida El formato de la petición no es JSON.
+
+    ```json { "object": "error", "type": "invalid_request_error", "merchant_message": "Petición invalida, verifica que el Content-Type sea application/json (formato JSON) y el cuerpo un JSON válido." } ```
+
+    #### Autenticación No ingresate una llave de autenticación válida.
+
+    ```json { "object": "error", "type": "authentication_error", "code": "invalid_key", "merchant_message": "Código de comercio proporcionado inválido: AJVBX245. Revisa tus llaves correctas en tu panel Culqi (http://culqi.com)." } ```
+
+    #### Parámetros Inválidos Ingresaste un parámetro inválido.
+
+    ```json { "object": "error", "type": "parameter_error", "code": "invalid_amount", "merchant_message": "El campo 'amount' es inválido.  El valor debe ser mayor o igual que '100' (1 Nuevo Sol) .", "param": "amount" } ```
+
+    #### Tarjetas Denegadas El banco denegó la compra porque el cliente no tenía fondos suficientes.
+
+    ```json { "object": "error", "type": "card_error", "charge_id": "chr_test_stm3Fr4HIPC50qxH", "code": "card_declined", "decline_code": "insufficient_funds" "merchant_message": "La La tarjeta no tiene fondos suficientes para realizar la compra. ", "user_message": "Su tarjeta no tiene fondos suficientes. Verifica tus fondos disponibles con el banco emisor o inténta nuevamente con otra tarjeta." } ```
+
+    ## Manejo de Errores Nuestras bibliotecas manejan excepciones por muchas razones. Entre ellas cargos denegados, parámetros inválidos, errores de autenticación y no disponibilidad de los bancos emisores. Recomendamos que contemples todos los escenarios y manejes todas las excepciones que presenta nuestra API.
     
     # Metadata
     La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](#tag/Tarjetas), [Clientes](#tag/Tarjetas) tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
