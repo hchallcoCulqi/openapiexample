@@ -13,7 +13,7 @@ info:
        <div class="cnttoken">
            <div class="cnttokenup">
                <div class="contentimgtokenletra">
-                   <div class="cntimgtoken"><img src="assets/images/boxes/tokens.png" width="50"></div>
+                   <div class="cntimgtoken"><img src="assets/images/boxes/tokens.png" width="40"></div>
                    <div class="cnttextotoken"> <strong>Tokens</strong>
                        <br><span> /tokens</span> </div>
                </div>
@@ -26,7 +26,7 @@ info:
          <div class="cnttoken" style="margin-right:0px;">
              <div class="cnttokenup">
                  <div class="contentimgtokenletra">
-                     <div class="cntimgtoken"><img src="assets/images/boxes/charges.png" width="50"></div>
+                     <div class="cntimgtoken"><img src="assets/images/boxes/charges.png" width="40"></div>
                      <div class="cnttextotoken"> <strong>Cargos</strong>
                          <br><span> /charges</span> </div>
                  </div>
@@ -39,7 +39,7 @@ info:
        <div class="cnttoken">
            <div class="cnttokenup">
                <div class="contentimgtokenletra">
-                   <div class="cntimgtoken"><img src="assets/images/boxes/plans.png" width="50"></div>
+                   <div class="cntimgtoken"><img src="assets/images/boxes/plans.png" width="40"></div>
                    <div class="cnttextotoken"> <strong>Planes</strong>
                        <br><span> /plans</span> </div>
                </div>
@@ -52,7 +52,7 @@ info:
         <div class="cnttoken" style="margin-right:0px;">
          <div class="cnttokenup">
              <div class="contentimgtokenletra">
-                 <div class="cntimgtoken"><img src="assets/images/boxes/subscriptions.png" width="50"></div>
+                 <div class="cntimgtoken"><img src="assets/images/boxes/subscriptions.png" width="40"></div>
                  <div class="cnttextotoken"> <strong>Suscripciones</strong>
                      <br><span> /subscriptions</span> </div>
              </div>
@@ -65,7 +65,7 @@ info:
        <div class="cnttoken">
            <div class="cnttokenup">
                <div class="contentimgtokenletra">
-                   <div class="cntimgtoken"><img src="assets/images/boxes/customers.png" width="50"></div>
+                   <div class="cntimgtoken"><img src="assets/images/boxes/customers.png" width="40"></div>
                    <div class="cnttextotoken"> <strong>Clientes</strong>
                        <br><span> /customers</span> </div>
                </div>
@@ -78,7 +78,7 @@ info:
          <div class="cnttoken" style="margin-right:0px;">
              <div class="cnttokenup">
                  <div class="contentimgtokenletra">
-                     <div class="cntimgtoken"><img src="assets/images/boxes/cards.png" width="50"></div>
+                     <div class="cntimgtoken"><img src="assets/images/boxes/cards.png" width="40"></div>
                      <div class="cnttextotoken"> <strong>Tarjetas</strong>
                          <br><span> /cards</span> </div>
                  </div>
