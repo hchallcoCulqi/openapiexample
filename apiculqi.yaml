@@ -343,6 +343,13 @@ info:
           </table>
         </div>
     
+    ejemplo 2:
+    <table id="tblAttr">
+        <tr><td>abc</td><td>def</td></tr>
+        <tr><td>1234</td><td>567</td></tr>
+        <tr></tr>
+    </table>
+    
     # Versionado
     Cuando realizamos cambios al API de Culqi que afectan la compatibilidad con versiones anteriores, realizamos lanzamientos de nuevas modificaciones de manera versionada. La última versión fue lanzada el 08-02-2017.
     
