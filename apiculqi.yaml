@@ -148,7 +148,7 @@ info:
     :::
 
     <div class="box info"><div class="content">Si necesitas ayuda con alguna petición en específico, brindando este ID de rastreo hará más fácil la ubicación y posterior solución del problema o incidencia.</div></div>
-    _______
+    
 
     **Ejemplo de Headers de Respuesta:**
     
@@ -258,6 +258,90 @@ info:
         </div>
       </div>
     </div>
+    
+    <div class="sc-hKFxyN hutltu_culqi">
+          <table class="sc-hHEiqL iZJLLY">
+            <tbody>
+              <tr class="">
+                <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="date"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">date</span>
+                  <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+                </td>
+                <td class="sc-bkbkJK gaTxIt_culqi">
+                  <div>
+                    <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                    <div>
+                      <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                        <p>Fecha en la que se creó la petición en UNIX Timestamp.</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="">
+                <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="x-culqi-environment"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-environment</span>
+                  <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+                </td>
+                <td class="sc-bkbkJK gaTxIt_culqi">
+                  <div>
+                    <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                    <div><span class="sc-laZMeE dmLkmF"> Enum:</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"live"</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"test"</span> </div>
+                    <div>
+                      <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                        <p>Entorno al que se realizó la petición. Ver más.</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="">
+                <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="x-culqi-tracking-id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-tracking-id</span>
+                  <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+                </td>
+                <td class="sc-bkbkJK gaTxIt_culqi">
+                  <div>
+                    <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                    <div>
+                      <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                        <p>Código de identificación de la petición.</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="">
+                <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="x-culqi-version"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-version</span>
+                  <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+                </td>
+                <td class="sc-bkbkJK gaTxIt_culqi">
+                  <div>
+                    <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                    <div>
+                      <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                        <p>Número de versión del API.</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="last ">
+                <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="content-type"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">content-type</span>
+                  <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+                </td>
+                <td class="sc-bkbkJK gaTxIt_culqi">
+                  <div>
+                    <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                    <div><span class="sc-laZMeE dmLkmF"> Value:</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"applcation/json"</span> </div>
+                    <div>
+                      <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                        <p>Formato de contenido de la respuesta.</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     
     # Versionado
     Cuando realizamos cambios al API de Culqi que afectan la compatibilidad con versiones anteriores, realizamos lanzamientos de nuevas modificaciones de manera versionada. La última versión fue lanzada el 08-02-2017.
