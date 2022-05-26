@@ -130,8 +130,7 @@ info:
     ```
     Aquí te presentamos algunas sugerencias para los valores de *metadata:*
     <SchemaDefinition schemaRef="#/components/schemas/Metadata" hideSamples={false}/>
-    <SchemaDefinition pointer="#/components/requestBodies/Metadata" />    
-    <OpenApiRequestBody definitionId="Metadata" pointer="#/components/requestBodies/Metadata" hideSamples={false} />  
+   
 
     # Paginación
     Todos los recursos principales de Culqi soportan operaciones de listado, entre ellos Tokens, Cargos, Transferencias, Tarjetas, Clientes, Suscripciones, Devoluciones y Planes. Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
@@ -174,14 +173,7 @@ info:
     | <span class="property-name">x-culqi-tracking-id</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Código de identificación de la petición.<br/>Ejemplo: "9283" |
     | <span class="property-name">x-culqi-version</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Número de versión del API.<br/>Ejemplo: "17.01.89" |
     | <span class="content-type">x-culqi-version</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Formato de contenido de la respuesta.<br/>Valor:  applcation/json |
-    
-    <SchemaDefinition schemaRef="#/components/parameters/date" />
-    <SchemaDefinition schemaRef="#/components/parameters/x-culqi-environment" />
-    <SchemaDefinition schemaRef="#/components/parameters/x-culqi-tracking-id" />
-    <SchemaDefinition schemaRef="#/components/parameters/x-culqi-version" />
-    <SchemaDefinition schemaRef="#/components/parameters/content-type" />
-
-
+   
     # Versionado
     Cuando realizamos cambios al API de Culqi que afectan la compatibilidad con versiones anteriores, realizamos lanzamientos de nuevas modificaciones de manera versionada. La última versión fue lanzada el 08-02-2017.
     
