@@ -164,14 +164,7 @@ info:
     
     <SchemaDefinition schemaRef="#/components/schemas/Rastreo" hideSamples={false} />
     
-    | Parámetro | Tipo | Descripcion |
-    | --- | --- | --- |
-    | <span class="property-name">date</span> <br/> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Fecha en la que se creó la petición en [UNIX Timestamp.](http://www.unixtimestamp.com/)<br/>Ejemplo: "1476132639" |
-    | <span class="property-name">x-culqi-environment</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Fecha en la que se creó la petición en [UNIX Timestamp.](http://www.unixtimestamp.com/)<br/>Ejemplo: "live"<br/>Posibles valores:  live, test |
-    | <span class="property-name">x-culqi-tracking-id</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Código de identificación de la petición.<br/>Ejemplo: "9283" |
-    | <span class="property-name">x-culqi-version</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Número de versión del API.<br/>Ejemplo: "17.01.89" |
-    | <span class="content-type">x-culqi-version</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Formato de contenido de la respuesta.<br/>Valor:  applcation/json |
-    
+        
     <div class="sc-eCApnc chOOHy">
       <div class="sc-iCoGMd dolNKP">
         <div class="sc-hKFxyN hutltu">
