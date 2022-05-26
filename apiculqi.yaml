@@ -105,7 +105,6 @@ info:
     
     Por medio de nuestra API, podrás ser notificado con toda la información en caso presentes un error al momento de hacer una petición a cualquier operación del API. La API de Culqi utiliza el estándar de Códigos de Estado HTTP (HTTP Status Codes) en todas sus respuestas para indicar si las solicitudes se pudieron procesar con éxito o fallaron.
 
-        
     # Metadata
     La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](#tag/Tarjetas), [Clientes](#tag/Tarjetas) tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
 
