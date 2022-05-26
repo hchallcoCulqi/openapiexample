@@ -260,7 +260,7 @@ info:
     </div>
     otro ejemplo:
     <div class="sc-hKFxyN hutltu_culqi">
-          <table class="sc-hHEiqL iZJLLY">
+          <table id="tblAttr" class="sc-hHEiqL iZJLLY">
             <tbody>
               <tr class="">
                 <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="date"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">date</span>
