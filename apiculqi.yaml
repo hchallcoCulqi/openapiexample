@@ -350,6 +350,40 @@ info:
         <tr></tr>
     </table>
     
+    ejemplo 3
+    <h1>Esto es un ejemplo de tabla 3</h1>
+    <table id="tabla1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jose</td>
+                <td>25</td>
+                <td>Arequipa</td>
+            </tr>
+            <tr>
+                <td>Alberto</td>
+                <td>32</td>
+                <td>Lima</td>
+            </tr>
+            <tr>
+                <td>Henry</td>
+                <td>35</td>
+                <td>Trujillo</td>
+            </tr>
+            <tr>
+                <td>Rocky</td>
+                <td>56</td>
+                <td>Chiclayo</td>
+            </tr>
+        </tbody>
+    </table>
+    
     # Versionado
     Cuando realizamos cambios al API de Culqi que afectan la compatibilidad con versiones anteriores, realizamos lanzamientos de nuevas modificaciones de manera versionada. La última versión fue lanzada el 08-02-2017.
     
