@@ -381,6 +381,21 @@ info:
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                    <p>Adjunta un número de pedido incremental.</p>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="">
+            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="user_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_id</span>
+              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+            </td>
+            <td class="sc-bkbkJK gaTxIt_culqi">
+              <div>
+                <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div>
+                  <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Adjunta un identificador del cliente de tu sistema.</p>
                   </div>
                 </div>
