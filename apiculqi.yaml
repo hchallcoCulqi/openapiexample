@@ -374,7 +374,7 @@ info:
         <tbody>
           <tr class="">
             <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="order_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">order_id</span>
-              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
@@ -390,7 +390,7 @@ info:
           </tr>
           <tr class="">
             <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="user_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_id</span>
-              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
@@ -406,12 +406,11 @@ info:
           </tr>
           <tr class="last">
             <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="user_details"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_details</span>
-              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
-                <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
-                <div><span class="sc-laZMeE dmLkmF"> Enum:</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"live"</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"test"</span> </div>
+                <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>                
                 <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">{'dni':'46734527'}</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
