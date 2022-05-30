@@ -625,6 +625,7 @@ info:
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"1476132639"</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Fecha en la que se creó la petición en UNIX Timestamp.</p>
@@ -656,6 +657,7 @@ info:
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"9283"</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Código de identificación de la petición.</p>
@@ -671,6 +673,7 @@ info:
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"17.01.89"</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Número de versión del API.</p>
