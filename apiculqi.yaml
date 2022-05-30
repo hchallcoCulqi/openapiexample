@@ -379,6 +379,7 @@ info:
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">{'order_id':'204055'}</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Adjunta un número de pedido incremental.</p>
@@ -394,6 +395,7 @@ info:
             <td class="sc-bkbkJK gaTxIt_culqi">
               <div>
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">{'user_id:'4625'}</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Adjunta un identificador del cliente de tu sistema.</p>
@@ -410,6 +412,7 @@ info:
               <div>
                 <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
                 <div><span class="sc-laZMeE dmLkmF"> Enum:</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"live"</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"test"</span> </div>
+                <div><span class="sc-laZMeE dmLkmF"> Example: </span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">{'dni':'46734527'}</span></div>
                 <div>
                   <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
                     <p>Adjunta datos adicionales sobre tu cliente.</p>
