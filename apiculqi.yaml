@@ -368,7 +368,44 @@ info:
     }
     ```
     Aquí te presentamos algunas sugerencias para los valores de *metadata:*
-    <SchemaDefinition schemaRef="#/components/schemas/Metadata" hideSamples={false}/>
+        
+    <div class="sc-hKFxyN hutltu_culqi">
+      <table id="tblAttr" class="sc-hHEiqL iZJLLY">
+        <tbody>
+          <tr class="">
+            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="order_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">order_id</span>
+              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+            </td>
+            <td class="sc-bkbkJK gaTxIt_culqi">
+              <div>
+                <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div>
+                  <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                    <p>Adjunta un identificador del cliente de tu sistema.</p>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="last">
+            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="user_details"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_details</span>
+              <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
+            </td>
+            <td class="sc-bkbkJK gaTxIt_culqi">
+              <div>
+                <div><span class="sc-laZMeE sc-iNiQyp dmLkmF isTLDY"></span><span class="sc-laZMeE sc-jffHpj dmLkmF lVyis">string</span></div>
+                <div><span class="sc-laZMeE dmLkmF"> Enum:</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"live"</span> <span class="sc-laZMeE sc-ckTSus dmLkmF cDPDUw">"test"</span> </div>
+                <div>
+                  <div class="sc-iJCRrE sc-ciSkZP ifDxYI wfptf">
+                    <p>Adjunta datos adicionales sobre tu cliente.</p>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
    
 
     # Paginación
@@ -560,7 +597,7 @@ info:
     | <span class="property-name">x-culqi-version</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Número de versión del API.<br/>Ejemplo: "17.01.89" |
     | <span class="content-type">x-culqi-version</span> <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div> | string | Formato de contenido de la respuesta.<br/>Valor:  applcation/json |
         
-    otro ejemplo:
+    Atributos:
     <div class="sc-hKFxyN hutltu_culqi">
       <table id="tblAttr" class="sc-hHEiqL iZJLLY">
         <tbody>
