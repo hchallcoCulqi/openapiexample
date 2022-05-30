@@ -99,10 +99,250 @@ info:
     -H "Authorization: Bearer sk_test_UTCQSGcXW8bCyU59"
     ```
     
-    Todas las peticiones al API deben ser hechas bajo el protocolo de transferencia [HTTPS.](https://es.wikipedia.org/wiki/Hypertext_Transfer_Protocol_Secure) Las llamadas hechas bajo el protocolo HTTP plano fallarán en el [entorno de producción](https://docs.culqi.com/#/cuenta/cuenta) al igual que las peticiones sin autenticación.
+    Todas las peticiones al API deben ser hechas bajo el protocolo de transferencia **HTTPS.** Las llamadas hechas bajo el protocolo HTTP plano fallarán en el [entorno de producción](https://docs.culqi.com/#/cuenta/cuenta) al igual que las peticiones sin autenticación.
     
     # Errores
+    Por medio de nuestra API, podrás ser notificado con toda la información en caso presentes un error al momento de hacer una petición a cualquier operación del API. La API de Culqi utiliza el estándar de Códigos de Estado HTTP (HTTP Status Codes) en todas sus respuestas para indicar si las solicitudes se pudieron procesar con éxito o fallaron.
 
+    ## Objeto Error
+
+    Atributos:
+    <div>
+    <table>
+    <tbody>
+    <tr>
+    <td title="date">type
+    <div>required</div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>Example:  "card_error"</div>
+    <div> Enum:  "invalid_request_error", "authentication_error", "parameter_error", "card_error", "limit_api_error", "resource_error"  y "api_error"</div>
+    <div>
+    <div>
+    <p>Indica el tipo de error devuelto</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="charge_id">charge_id
+    <div></div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>Example:  "chr_test_stm3Fr4HIPC50qxH""</div>
+    <div>
+    <div>
+    <p>El ID del cargo que ha sido denegado</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="code">code
+    <div>Example: "card_declined"</div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>
+    <div>
+    <p>Indica el tipo de error relacionado a una tarjeta</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="declined_code">declined_code
+    <div>Example: "insufficient_funds"</div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>
+    <div>
+    <p>Indica el motivo de denegación devuelto por los bancos.</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="merchant_message">merchant_message
+    <div>required</div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div> Example: "La tarjeta no tiene fondos suficientes para realizar la compra."</div>
+    <div>
+    <div>
+    <p>Mensaje dirigido al comercio para conocer el detalle del error.</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="merchant_message">user_message
+    <div></div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div> Example: "Su tarjeta no tiene fondos suficientes. Verifica tus fondos disponibles con el banco emisor o inténta nuevamente con otra tarjeta.</div>
+    <div>
+    <div>
+    <p>Mensaje dirigido al cliente para conocer el detalle del error.</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+      <tr>
+    <td title="merchant_message">param
+    <div></div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div> Example: "amount"</div>
+    <div>
+    <div>
+    <p>Indica el parámetro específico relacionado al error.</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    
+
+    ## Códigos HTTP
+
+    Culqi usa los siguientes códigos de estado HTTP en sus respuestas:
+
+      | Código | HTTP Status | Descripción                         |
+      |--------|-------------|-------------------------------------|
+      | 200    | OK          | Todo ha salido a la perfección.     |
+      | 201    | Created     | Un nuevo recurso ha sido creado. (POST).     |
+      | 204    | No Content  | El recurso fue exitosamente eliminado. (DELETE)     |
+      | 400    | Bad Request          | La petición al servidor no ha podido ser procesada debido a una sintáxis incorrecta.     |
+      | 401    | Unauthorized          | La llave API utilizada es inválida.     |
+      | 402    | Payment Required	          | El pago no pudo ser procesado.     |
+      | 404    | Not Found          | 	El recurso solicitado en la llamada no existe.     |
+      | 422    | Unprocessable Entity          | La sintaxis de la llamada es válida pero la información dentro de los parámetros es inválida.     |                                                                      
+      | 500 y 503    | Server Errors          | 	Error en los servidores Culqi y la petición no pudo ser procesada.     |  
+      
+      
+      
+    ## Tipos de Errores
+
+    Culqi devuelve los siguientes tipos de errores relacionados con los códigos de estado HTTP en sus respuestas:
+
+      | Type| HTTP Status Code - Descripción |
+      |--------|-------------|
+      | invalid_request_error| HTTP 400 - La petición tiene una sintaxis inválida.|
+      | authentication_error| HTTP 401 - La petición no pudo ser procesada debido a problemas con las llaves.|
+      | parameter_error| HTTP 422 - Algún parámetro de cualquier petición es inválido.|
+      | card_error| HTTP 402 - No se pudo realizar el cargo a una tarjeta.|  
+      | limit_api_error| HTTP 429 - Estás haciendo muchas peticiones rápidamente al API o superaste tu límite designado.|  
+      | resource_error| HTTP 404 - El recurso no puede ser encontrado, es inválido o tiene un estado diferente al permitido.|  
+      | api_error| HTTP 500 y 503 - Engloba cualquier otro tipo de error (Ejemplo: problema temporal con los servidores de Culqi) y debería de ocurrir muy pocas veces.|  
+      
+
+    ## Codigos de Denegación de Bancos
+
+    Culqi devuelve los siguientes tipos de denegaciones devueltas por los bancos:
+
+    | Decline Code	| Explicación |
+    |--------|-------------|
+    | expired_card	| Tarjeta vencida. La tarjeta está vencida o la fecha de vencimiento ingresada es incorrecta.| 
+    | stolen_card| Tarjeta robada. La tarjeta fue bloqueada y reportada al banco emisor como una tarjeta robada| 
+    | lost_card| Tarjeta perdida. La tarjeta fue bloqueada y reportada al banco emisor como una tarjeta perdida.| 
+    | insufficient_funds| Fondos insuficientes. La tarjeta no tiene fondos suficientes para realizar la compra.| 
+    | contact_issuer| Contactar emisor. La operación fue denegada por el banco emisor de la tarjeta y el cliente necesita contactarse con la entidad para conocer el motivo.| 
+      | invalid_cvv| CVV inválido. El código de seguridad (CVV2, CVC2, CID) de la tarjeta es inválido.| 
+    | too_many_attempts_cvv| Exceso CVV. El cliente ha intentado demasiadas veces ingresar el código de seguridad (CVV2, CVC2, CID) de la tarjeta.| 
+    | issuer_not_available| Emisor no disponible. El banco que emitió la tarjeta no responde. El cliente debe realizar el pago nuevamente.| 
+    | issuer_decline_operation| Operación denegada. La operación fue denegada por el banco emisor de la tarjeta por una razón desconocida.| 
+      |invalid_card| Tarjeta inválida. La tarjeta utilizada tiene restricciones para este tipo de compras. El cliente necesita contactarse con el banco emisor para conocer el motivo de la denegación.| 
+      |processing_error| Error de procesamiento. Ocurrió un error mientras procesabamos la compra. Contáctate con culqi.com/soporte para que te demos una solución.| 
+      |fraudulent| Operación fraudulenta. El banco emisor de la tarjeta sospecha que se trata de una compra fraudulenta.| 
+      |culqi_card| Tarjeta Culqi. Estás utilizando una tarjeta de pruebas de Culqi para realizar una compra real.| 
+      |soft_block| Tarjeta con bloqueo temporal por reintentos. El cliente debe intentar nuevamente con otra tarjeta.| 
+      
+    ## Casos de Errores
+
+    A continuación te presentamos una serie de ejemplos de errores comunes a la hora de integrar la API de Culqi.
+
+    #### Petición Inválida
+    El formato de la petición no es JSON.
+
+    ```json
+    {
+      "object": "error",
+      "type": "invalid_request_error",
+      "merchant_message": "Petición invalida, verifica que el Content-Type sea
+      application/json (formato JSON) y el cuerpo un JSON válido."
+    }
+    ```
+
+    #### Autenticación
+    No ingresate una llave de autenticación válida.
+
+    ```json
+    {
+      "object": "error",
+      "type": "authentication_error",
+      "code": "invalid_key",
+      "merchant_message": "Código de comercio proporcionado inválido: AJVBX245.
+      Revisa tus llaves correctas en tu panel Culqi (http://culqi.com)."
+    }
+    ```
+
+    #### Parámetros Inválidos
+    Ingresaste un parámetro inválido.
+
+    ```json
+    {
+      "object": "error",
+      "type": "parameter_error",
+      "code": "invalid_amount",
+      "merchant_message": "El campo 'amount' es inválido.  El valor debe ser mayor
+      o igual que '100' (1 Nuevo Sol) .",
+      "param": "amount"
+    }
+    ```
+
+    #### Tarjetas Denegadas
+    El banco denegó la compra porque el cliente no tenía fondos suficientes.
+
+    ```json
+    {
+      "object": "error",
+      "type": "card_error",
+      "charge_id": "chr_test_stm3Fr4HIPC50qxH",
+      "code": "card_declined",
+      "decline_code": "insufficient_funds"
+      "merchant_message": "La La tarjeta no tiene fondos suficientes para realizar
+      la compra. ",
+      "user_message": "Su tarjeta no tiene fondos suficientes. Verifica tus fondos
+      disponibles con el banco emisor o inténta nuevamente con otra tarjeta."
+    }
+    ```
+
+    ## Manejo de Errores
+    Nuestras bibliotecas manejan excepciones por muchas razones. Entre ellas cargos denegados, parámetros inválidos, errores de autenticación y no disponibilidad de los bancos emisores. Recomendamos que contemples todos los escenarios y manejes todas las excepciones que presenta nuestra API.    
+    
     # Metadata
     La metadata es una manera útil de guardar información adicional de manera estructurada en un objeto. Todos los recursos de Culqi, incluyendo [Tokens](#tag/Tokens), [Cargos](#tag/Cargos), [Planes](#tag/Planes), [Suscripciones](#tag/Suscripciones), [Devoluciones](#tag/Devoluciones), [Tarjetas](#tag/Tarjetas), [Clientes](#tag/Tarjetas) tienen un parámetro metadata que puede ser utilizado para reflejar información clave de tu negocio que quieras relacionar con las operaciones.
 
@@ -132,11 +372,166 @@ info:
    
 
     # Paginación
-    Todos los recursos principales de Culqi soportan operaciones de listado, entre ellos Tokens, Cargos, Transferencias, Tarjetas, Clientes, Suscripciones, Devoluciones y Planes. Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
+    Todos los recursos principales de Culqi soportan operaciones de listado, entre ellos [Tokens] (https://apidocs.culqi.com/#/tokens), [Cargos](https://apidocs.culqi.com/#/cargos), [Transferencias](https://apidocs.culqi.com/#/transferencias), [Tarjetas](https://apidocs.culqi.com/#/tarjetas), [Clientes](https://apidocs.culqi.com/#/clientes), [Suscripciones](https://apidocs.culqi.com/#/suscripciones), [Devoluciones] (https://apidocs.culqi.com/#/devoluciones) y [Planes](https://apidocs.culqi.com/#/planes). Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
 
     Culqi utiliza una paginación en tiempo real basada en cursor a través de los parámetros after y before. Un cursor se refiere a un string de caracteres random que marca un ítem específico en una lista de datos. A menos que el ítem sea borrado, el cursor siempre estará punteando la misma parte de la lista, pero será invalidado si el ítem es removido.
 
-    En Culqi, los parámetros after y before toman el valor ID y retornan los objetos en un orden cronológico reverso. El parámetro before devuelve los objetos creados antes del objeto en cuestión. El parámetro after devuelve los objetos creados después del objeto en cuestión. Si ambos parámetros son provistos sólo before es utilizado.  
+    En Culqi, los parámetros after y before toman el valor ID y retornan los objetos en un orden cronológico reverso. El parámetro before devuelve los objetos creados antes del objeto en cuestión. El parámetro after devuelve los objetos creados después del objeto en cuestión. Si ambos parámetros son provistos sólo before es utilizado.
+
+    ## Ejemplo de Paginación
+
+    En el siguiente ejemplo podrás conocer cómo realizar una petición para obtener un listado de los últimos 50 [cargos](https://apidocs.culqi.com/#/cargos#list).
+
+    ### Petición
+
+    Petición
+
+     ```json
+    curl -X GET -H "Authorization: Bearer sk_test_wJ7jU1ydtz9npsmc"
+    -H "Cache-Control: no-cache"
+    "https://api.culqi.com/v2/charges?limit=50&before=chr_test_kzGrl1jlVSaY8guT"
+    ```
+
+
+    Atributos
+
+    <div>
+    <table>
+    <tbody>
+    <tr>
+    <td title="limit">limit
+    <div>required</div>
+    <div>MinValue: 1</div>
+    <div>MaxValue: 100	</div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>Example:   "50"</div>
+    <div>
+    <div>
+    <p>El número limite de objetos que quieres que sean retornados</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="charge_id">charge_id
+    <div></div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>Example:  "chr_test_stm3Fr4HIPC50qxH""</div>
+    <div>
+    <div>
+    <p>El ID del cargo que ha sido denegado</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="after">after
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>Example: "chr_test_ExT9c1UFAH0TX2Ui"</div>
+    <div>
+    <div>
+    <p>El objeto desde donde se quiere traer la siguiente página (no inclusivo)</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="before">before
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+      <div>Example: "chr_test_kzGrl1jlVSaY8guT"</div>
+    <div>
+    <div>
+    <p>El objeto desde donde se quiere traer la página anterior (no inclusivo)
+    .</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+
+    Respuesta
+
+    ```json
+      {
+      "data":[
+        ...
+      ],
+      "paging":{
+        "previous": "https://api.culqi.com/v2/charges?limit=50&before=chr_test
+        _kzGrl1jlVSaY8guT",
+        "next": "https://api.culqi.com/v2/charges?limit=50&after=chr_test_ExT9
+        c1UFAH0TX2Ui",
+        "cursors": {
+        "before": "chr_test_kzGrl1jlVSaY8guT",
+        "after": "chr_test_ExT9c1UFAH0TX2Ui"
+        }
+      }
+    }
+    ```
+
+    Atributos
+
+    <div>
+    <table>
+    <tbody>
+    <tr>
+    <td title="data">data
+    <div>required</div>
+    <div>MinValue: 1</div>
+    <div>MaxValue: 100	</div>
+    </td>
+    <td>
+    <div>
+    <div>string</div>
+    <div>Example:   "50"</div>
+    <div>
+    <div>
+    <p>Un arreglo que contiene los elementos de la respuesta paginados por los parámetros de la petición.</p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td title="paging">paging
+    <div>required</div>
+    </td>
+    <td>
+    <div>
+    <div>object</div>
+    <div>
+    <div>
+    <p>Objeto que contiene la información de los cursores.
+    </p>
+    </div>
+    </div>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+
+    ## Auto-paginación
+    La mayoría de nuestras [bibliotecas](https://docs.culqi.com/#/desarrollo/bibliotecas) soportan auto-paginación. Esta funcionalidad te permite manejar grandes listados de recursos sin tener que implementar manualmente resultados paginados y realizar peticiones subsequentes. 
 
     
 
@@ -756,7 +1151,7 @@ paths:
             example: '411111'
           in: query
           name: bin
-          description: 'Primeros seis dígitos de la tarjeta expresado en formato [ISO/IEC 7812.](https://es.wikipedia.org/wiki/N%C3%BAmero_de_tarjeta_bancaria)'
+          description: 'Primeros seis dígitos de la tarjeta expresado en formato **ISO/IEC 7812.** '
         - schema:
             type: string
             example: PE
@@ -3792,7 +4187,7 @@ components:
           description: Monto aproximado de la cuota que se aplicará al cliente.
         currency_code:
           type: string
-          description: 'Código de la moneda en la que se realizó el cargo en formato [ISO 3166-2.](https://es.wikipedia.org/wiki/ISO_3166-2)'
+          description: 'Código de la moneda en la que se realizó el cargo en formato **ISO 3166-2.** '
           enum:
             - PEN
             - USD
@@ -4152,7 +4547,7 @@ components:
         currency_code:
           type: string
           minLength: 1
-          description: 'Código del país de la moneda de la suscripción en formato [ISO 3166-2](https://es.wikipedia.org/wiki/ISO_3166-2).'
+          description: 'Código del país de la moneda de la suscripción en formato **ISO 3166-2**.'
           enum:
             - PEN
             - USD
@@ -4245,7 +4640,7 @@ components:
         currency_code:
           type: string
           minLength: 1
-          description: 'Código de la moneda en tres letras Formato (ISO 4217)[https://es.wikipedia.org/wiki/ISO_4217].'
+          description: 'Código de la moneda en tres letras Formato **ISO 4217**.'
           enum:
             - PEN
         description:
