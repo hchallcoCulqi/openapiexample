@@ -3163,6 +3163,8 @@ paths:
                   lastName: Baker
                   dateOfBirth: '1985-10-02'
         description: Patch user properties to update.
+      tags:
+        - Suscripciones
     post:
       summary: Crear Suscripción
       operationId: post-v2-subscriptions
@@ -3214,6 +3216,8 @@ paths:
                 - card_id
                 - plan_id
         description: ''
+      tags:
+        - Suscripciones
   '/v2/subscriptions/{id}':
     parameters:
       - schema:
@@ -3287,6 +3291,8 @@ paths:
                       minLength: 1
               required:
                 - metadata
+      tags:
+        - Suscripciones
     delete:
       summary: Cancelar Suscripción
       operationId: delete-v2-subscriptions-id
@@ -3305,6 +3311,8 @@ paths:
           in: header
           name: Authorization
           description: Bearer << llave_privada >>
+      tags:
+        - Suscripciones
   /v2/orders:
     parameters: []
     get:
