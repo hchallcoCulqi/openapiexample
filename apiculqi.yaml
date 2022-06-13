@@ -375,7 +375,7 @@ info:
       <table >
         <tbody>
           <tr class="">
-            <td  kind="field" title="order_id"><span class="property-name">order_id</span>
+            <td  kind="field" title="order_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">order_id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -391,7 +391,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="user_id"><span class="property-name">user_id</span>
+            <td kind="field" title="user_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -407,7 +407,7 @@ info:
             </td>
           </tr>
           <tr class="last">
-            <td kind="field" title="user_details"><span class="property-name">user_details</span>
+            <td kind="field" title="user_details"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_details</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -612,7 +612,7 @@ info:
       <table id="tblAttr">
         <tbody>
           <tr class="">
-            <td  kind="field" title="date"><span class="property-name">date</span>
+            <td  kind="field" title="date"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">date</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -628,7 +628,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="x-culqi-environment"><span class="property-name">x-culqi-environment</span>
+            <td kind="field" title="x-culqi-environment"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-environment</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -644,7 +644,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="x-culqi-tracking-id"><span class="property-name">x-culqi-tracking-id</span>
+            <td kind="field" title="x-culqi-tracking-id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-tracking-id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -660,7 +660,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="x-culqi-version"><span class="property-name">x-culqi-version</span>
+            <td kind="field" title="x-culqi-version"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-version</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -676,7 +676,7 @@ info:
             </td>
           </tr>
           <tr class="last ">
-            <td kind="field" title="content-type"><span class="property-name">content-type</span>
+            <td kind="field" title="content-type"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">content-type</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -798,7 +798,7 @@ servers:
 tags:
   - name: Tokens
     description: |-
-      **Tokenización** es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un token representa la información de la tarjeta y es devuelto a tus servidores para que puedas utilizarlo a través de [Culqi Checkout](https://docs.culqi.com/#/pagos/checkout), [Culqi.JS](https://docs.culqi.com/#/pagos/js) o nuestras bibliotecas para móviles ([iOS](https://docs.culqi.com/#/pagos/ios) y [Android](https://docs.culqi.com/#/pagos/android)). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa **PCI DSS**.
+      **Tokenización** es el proceso que utiliza Culqi para capturar de manera segura datos sensibles de tarjetas de crédito y débito directamente desde el navegador del cliente. Un <em>token</em> representa a una tarjeta dentro del flujo de pago de Culqi y es devuelto a tus servidores para que puedas utilizarlo a través de [Culqi Checkout](https://docs.culqi.com/#/pagos/checkout), [Culqi.JS](https://docs.culqi.com/#/pagos/js) o nuestras bibliotecas para móviles ([iOS](https://docs.culqi.com/#/pagos/ios) y [Android](https://docs.culqi.com/#/pagos/android)). Este método nos asegura que ningún dato de tarjeta toque tus servidores y permite que la integración cumple con la normativa **PCI DSS**.
       </br> </br>
       Si no deseas hacer uso de los métodos de tokenización disponibles, también puedes crear tokens utilizando la API y tu llave pública. Pero en este caso recuerda que tu empresa será la responsable de cualquier procedimiento requerido por la normativa **PCI DSS**, como por ejemplo el [siguiente autocuestionario](https://www.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf). A diferencia de Culqi Checkout, Culqi.JS y los SDKs para móviles, la información de tu cliente no será enviada directamente a Culqi así que no podríamos determinar si manejas o guardas esta información con seguridad.
       </br>
