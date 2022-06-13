@@ -375,7 +375,7 @@ info:
       <table >
         <tbody>
           <tr class="">
-            <td  kind="field" title="order_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">order_id</span>
+            <td  kind="field" title="order_id"><span class="property-name">order_id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -391,7 +391,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="user_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_id</span>
+            <td kind="field" title="user_id"><span class="property-name">user_id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -407,7 +407,7 @@ info:
             </td>
           </tr>
           <tr class="last">
-            <td kind="field" title="user_details"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_details</span>
+            <td kind="field" title="user_details"><span class="property-name">user_details</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -612,7 +612,7 @@ info:
       <table id="tblAttr">
         <tbody>
           <tr class="">
-            <td  kind="field" title="date"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">date</span>
+            <td  kind="field" title="date"><span class="property-name">date</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -628,7 +628,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="x-culqi-environment"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-environment</span>
+            <td kind="field" title="x-culqi-environment"><span class="property-name">x-culqi-environment</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -644,7 +644,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="x-culqi-tracking-id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-tracking-id</span>
+            <td kind="field" title="x-culqi-tracking-id"><span class="property-name">x-culqi-tracking-id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -660,7 +660,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td kind="field" title="x-culqi-version"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-version</span>
+            <td kind="field" title="x-culqi-version"><span class="property-name">x-culqi-version</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -676,7 +676,7 @@ info:
             </td>
           </tr>
           <tr class="last ">
-            <td kind="field" title="content-type"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">content-type</span>
+            <td kind="field" title="content-type"><span class="property-name">content-type</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
