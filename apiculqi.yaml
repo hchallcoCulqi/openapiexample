@@ -4,10 +4,12 @@ info:
   version: '1.0'
   description: |
     # Introducción
-    La API de [Culqi](http://culqi.com/) está construido bajo los estándares de **REST**. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los [códigos de respuesta HTTP](https://httpstatuses.com/) para indicar los posibles errores en el API. Es importante indicar que se encuentra implementada una autenticación HTTP (<em>Bearer Token</em>), solicitada en cada petición. A<demás, soportamos las solicitudes HTTP de origen cruzdo (CORS), permitiendo que tu sitio y Culqi puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente (aunque NUNCA deberías exponer tu Llave Secreta en el código de la aplicación web cliente). Por otro lado, un objeto JSON es retornado en cada una las peticiones hacia el API, incluyendo los errores. Adicionalmente nuestras bibliotecas convierten las respuestas en objetos específicos para cada lenguaje soportado.
+    La API de [Culqi](http://culqi.com/) está construido bajo los estándares de **REST**. Es decir, nuestra API posee URLs orientada a recursos, y hace uso de los [códigos de respuesta HTTP](https://httpstatuses.com/) para indicar los posibles errores en el API. Para cada petición se encuentra implementada una autenticación HTTP (<em>Bearer Token</em>). Además, soportamos las solicitudes HTTP de origen cruzado (CORS), permitiendo que tu **sitio** y **Culqi** puedan interactuar de manera segura mediante nuestra API desde una aplicación cliente. Cada petición a las API retorna un objeto [JSON](http://www.json.org/) incluyendo errores. Adicionalmente nuestras [bibliotecas](https://docs.culqi.com/#/desarrollo/bibliotecas) convierten las respuestas en objetos específicos para cada lenguaje soportado.
 
-    Finalmente, para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el entorno de pruebas (Regístrate y obtén tus llaves) y el entorno de producción. Usando las llaves de prueba las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar tarjetas de prueba, no tarjetas reales al probar!).
+    Para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el **entorno de pruebas** ([Regístrate](https://integ-panel.culqi.com/#/registro) y obtén tus llaves) y el **entorno de producción**. Usando las **llaves de prueba** las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar [tarjetas de prueba](https://docs.culqi.com/#/desarrollo/tarjetas), no tarjetas reales al probar!).
     
+	Nunca deberías exponer tu [Llave Secreta](https://docs.culqi.com/#/cuenta/cuenta#llaves) en el código de la aplicación web cliente.
+	
     <div class="cntrecursos">
       <a href="#tag/Tokens">
        <div class="cnttoken">
@@ -58,7 +60,7 @@ info:
              </div>
              <div class="cntimgletrintokenurl"><img src="assets/images/flechon.jpg"></div>
          </div>
-         <div class="cnttokenlower"> Realiza cargos recurrentes a tus clientes asociando una tarjeta de crédito o débito guardada con un plan de suscripción creado previamente. </div>
+         <div class="cnttokenlower"> Realiza cargos recurrentes a tus clientes asociando una tarjeta de crédito o débito asociada con un plan de suscripción creado previamente. </div>
         </div>
       </a>
       <a href="#tag/Clientes">
@@ -84,7 +86,7 @@ info:
                  </div>
                  <div class="cntimgletrintokenurl"><img src="assets/images/flechon.jpg"></div>
              </div>
-             <div class="cnttokenlower"> Guarda información de las tarjetas de tus clientes frecuentes para realizarles cargos sin que vuelvan a colocar toda la información de sus tarjetas de crédito o débito. </div>
+             <div class="cnttokenlower"> Guarda información de las tarjetas de tus clientes frecuentes para realizarles cargos sin que vuelvan a ingresar toda la información de sus tarjetas de crédito o débito. </div>
          </div>
       </a>
     </div>
@@ -351,7 +353,7 @@ info:
     <div class="box info"><div class="content">El atributo metadata no puede tener más de 20 objetos clave-valor. Adicionalmente, la clave no podrá exceder de 30 caracteres y el valor de 200 caracteres.</div></div>
 
     **Ejemplos de Metadata** </br>
-    Por ejemplo, en la petición para [crear un cargo](#operation/crear-cargo) al API, podrías enviar a través del objeto metadata los valores definidos anteriormente:
+    Por ejemplo, en la petición para [crear un cargo](#operation/crear-cargo) al API, podrías enviar a través del objeto metadata los valores como user_id, user_details:
     ```json
     {
       "amount":200,
@@ -369,11 +371,11 @@ info:
     ```
     Aquí te presentamos algunas sugerencias para los valores de *metadata:*
         
-    <div class="sc-hKFxyN hutltu_culqi">
-      <table id="tblAttr" class="sc-hHEiqL iZJLLY">
+    <div>
+      <table >
         <tbody>
           <tr class="">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="order_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">order_id</span>
+            <td  kind="field" title="order_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">order_id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -389,7 +391,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="user_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_id</span>
+            <td kind="field" title="user_id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -405,7 +407,7 @@ info:
             </td>
           </tr>
           <tr class="last">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="user_details"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_details</span>
+            <td kind="field" title="user_details"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">user_details</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun"></div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -426,9 +428,9 @@ info:
    
 
     # Paginación
-    Todos los recursos principales de Culqi soportan operaciones de listado, entre ellos [Tokens] (https://apidocs.culqi.com/#/tokens), [Cargos](https://apidocs.culqi.com/#/cargos), [Transferencias](https://apidocs.culqi.com/#/transferencias), [Tarjetas](https://apidocs.culqi.com/#/tarjetas), [Clientes](https://apidocs.culqi.com/#/clientes), [Suscripciones](https://apidocs.culqi.com/#/suscripciones), [Devoluciones] (https://apidocs.culqi.com/#/devoluciones) y [Planes](https://apidocs.culqi.com/#/planes). Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
+    Todas las APIs de Culqi soportan operaciones de listado, entre ellos [Tokens] (https://apidocs.culqi.com/#/tokens), [Cargos](https://apidocs.culqi.com/#/cargos), [Transferencias](https://apidocs.culqi.com/#/transferencias), [Tarjetas](https://apidocs.culqi.com/#/tarjetas), [Clientes](https://apidocs.culqi.com/#/clientes), [Suscripciones](https://apidocs.culqi.com/#/suscripciones), [Devoluciones] (https://apidocs.culqi.com/#/devoluciones) y [Planes](https://apidocs.culqi.com/#/planes). Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
 
-    Culqi utiliza una paginación en tiempo real basada en cursor a través de los parámetros after y before. Un cursor se refiere a un string de caracteres random que marca un ítem específico en una lista de datos. A menos que el ítem sea borrado, el cursor siempre estará punteando la misma parte de la lista, pero será invalidado si el ítem es removido.
+    Culqi utiliza una paginación en tiempo real basada en cursor a través de los parámetros after y before. Un cursor se refiere a un <em>string</em> de caracteres random que marca un ítem específico en una lista de datos. A menos que el ítem sea borrado, el cursor siempre estará punteando la misma parte de la lista, pero será invalidado si el ítem es removido.
 
     En Culqi, los parámetros after y before toman el valor ID y retornan los objetos en un orden cronológico reverso. El parámetro before devuelve los objetos creados antes del objeto en cuestión. El parámetro after devuelve los objetos creados después del objeto en cuestión. Si ambos parámetros son provistos sólo before es utilizado.
 
@@ -606,11 +608,11 @@ info:
     ```
     Atributos:
    
-    <div class="sc-hKFxyN hutltu_culqi">
-      <table id="tblAttr" class="sc-hHEiqL iZJLLY">
+    <div>
+      <table id="tblAttr">
         <tbody>
           <tr class="">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="date"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">date</span>
+            <td  kind="field" title="date"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">date</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -626,7 +628,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="x-culqi-environment"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-environment</span>
+            <td kind="field" title="x-culqi-environment"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-environment</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -642,7 +644,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="x-culqi-tracking-id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-tracking-id</span>
+            <td kind="field" title="x-culqi-tracking-id"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-tracking-id</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -658,7 +660,7 @@ info:
             </td>
           </tr>
           <tr class="">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="x-culqi-version"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-version</span>
+            <td kind="field" title="x-culqi-version"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">x-culqi-version</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -674,7 +676,7 @@ info:
             </td>
           </tr>
           <tr class="last ">
-            <td class="sc-hBMUJo sc-fFSPTT eJvdeH dLEyPf" kind="field" title="content-type"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">content-type</span>
+            <td kind="field" title="content-type"><span class="sc-iemWCZ kMjgQu"></span><span class="property-name">content-type</span>
               <div class="sc-oeezt sc-hhIiOg bkbCTW kXduun">required</div>
             </td>
             <td class="sc-bkbkJK gaTxIt_culqi">
@@ -3317,15 +3319,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
               examples:
-                Get User Alice Smith:
+                Example-1:
                   value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
+                    data:
+                      - ...
+                    paging:
+                      previous: 'https://api.culqi.com/v2/orders?limit=50&before=crd_live_RzjT yGUwZioJLpZt'
+                      next: 'https://api.culqi.com/v2/orders?limit=50&after=crd_live_Z1YXhVdg6 0B0UCLI'
+                      cursors:
+                        before: ord_live_RzjTyGUwZioJLpZt
+                        after: ord_live_Z1YXhVdg60B0UCLI
       operationId: get-users-userId
       description: 'Listas órdenes permtie obtener el listado de órdenes de tu comercio. De acuerdo a los filtros que uses, las ordenes serán ordenados de acuerdo a su fecha de creación; siendo el primero el más reciente.'
       parameters:
@@ -3467,7 +3470,37 @@ paths:
       responses:
         '201':
           description: La petición fue exitosa
-      description: 'La creación de una orden permite que se genere un objeto orden con los detalles de la posible venta. Esta orden nace con un estado pendiente de pago. Además, al momento de la creación tu cliente recibe un correo con las instrucciones de como pagar la orden.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    object: order
+                    id: ord_live_xjmEW4dIyJM9G4cc
+                    amount: 6000
+                    payment_code: '13642064'
+                    currency_code: PEN
+                    description: Venta de polo
+                    order_number: '#id-9999'
+                    state: pending
+                    total_fee: null
+                    net_amount: null
+                    fee_details: null
+                    creation_date: 1538540487
+                    expiration_date: 1538540700
+                    updated_at: null
+                    paid_at: null
+                    available_on: null
+                    metadata: null
+                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
+                    cuotealo: url de cuotéalo
+      description: |-
+        La creación de una orden permite que se genere un objeto orden con los detalles de la posible venta. Esta orden nace con un estado pendiente de pago. Además, al momento de la creación tu cliente recibe un correo con las instrucciones de como pagar la orden.
+
+        <div class="box info"><div class="content">Si una orden es creada con el parametro confirm en false, esta tendrá que ser confirmada inmediatamente con el método Confirmar orden. De lo contrario, la orden no podrá ser pagada por tu cliente. Se recomienda crearla sin incluir el parámetro 'confirm'' para que siga el flujo natural.</div></div>
       parameters:
         - schema:
             type: string
@@ -3563,13 +3596,25 @@ paths:
               examples:
                 New User Bob Fellow:
                   value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
+                    object: order
+                    id: ord_live_xjmEW4dIyJM9G4cc
+                    amount: 6000
+                    payment_code: '13642064'
+                    currency_code: PEN
+                    description: Venta de polo
+                    order_number: '#id-9999'
+                    state: pending
+                    total_fee: null
+                    net_amount: null
+                    fee_details: null
+                    creation_date: 1538540487
+                    expiration_date: 1538540700
+                    updated_at: null
+                    paid_at: null
+                    available_on: null
+                    metadata: null
+                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
+                    cuotealo: url de cuotéalo
         '400':
           description: Missing Required Information
         '409':
@@ -3616,6 +3661,33 @@ paths:
       responses:
         '200':
           description: La petición fue exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    object: order
+                    id: ord_live_xjmEW4dIyJM9G4cc
+                    amount: 6000
+                    payment_code: '13642064'
+                    currency_code: PEN
+                    description: Venta de polo
+                    order_number: '#id-9999'
+                    state: pending
+                    total_fee: null
+                    net_amount: null
+                    fee_details: null
+                    creation_date: 1538540487000
+                    expiration_date: 1538540700000
+                    updated_at: null
+                    paid_at: null
+                    available_on: null
+                    metadata: null
+                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
+                    cuotealo: url de cuotéalo
       operationId: get-v2-orders-id
       description: Consulta el detalle de una orden utilizando su ID. Como respuesta exitosa obtendrás un objeto Orden. Si la petición es inválida te devolveremos un error
       parameters:
@@ -3623,18 +3695,44 @@ paths:
             type: string
           in: header
           name: Content-type
-          description: application/json
         - schema:
             type: string
           in: header
           name: Authorization
-          description: Bearer << llave_privada >>
+          description: Llave privada.
     patch:
       summary: Actualizar orden
       operationId: patch-v2-orders-id
       responses:
         '200':
           description: La petición fue exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    object: order
+                    id: ord_live_xjmEW4dIyJM9G4cc
+                    amount: 6000
+                    payment_code: '13642064'
+                    currency_code: PEN
+                    description: Venta de polo
+                    order_number: '#id-9999'
+                    state: pending
+                    total_fee: null
+                    net_amount: null
+                    fee_details: null
+                    creation_date: 1538540487000
+                    expiration_date: 1538540700000
+                    updated_at: null
+                    paid_at: null
+                    available_on: null
+                    metadata: null
+                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
+                    cuotealo: url de cuotéalo
       description: |
         Con actualizar una orden se puede extender la validez de una orden, es decir, el tiempo de expiración. Además, te permitirá agregar o reemplazar información a los valores de la metadata que enviaste a la hora de crearla. Cualquier parámetro o valor no provisto será omitido en los valores de la metadata.
       parameters:
@@ -3669,6 +3767,11 @@ paths:
                   description: "\t\nInformación adicional de la orden a modificar\n\nExample: \"{\"dni\"=>\"71701978\"}\""
               required:
                 - expiration_date
+            examples:
+              example-1:
+                value:
+                  expiration_date: '"ord_live_vEcZSCOVz5PGDPdQ"'
+                  metadata: {}
       tags:
         - Ordenes
     delete:
@@ -3689,6 +3792,81 @@ paths:
           in: header
           name: Authorization
           description: Bearer << llave_privada >>
+      tags:
+        - Ordenes
+  /v2/orders/confirm:
+    post:
+      summary: Confirmar tipo de Orden
+      operationId: post-v2-orders-confirm
+      responses:
+        '200':
+          description: Petición exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    object: order
+                    id: ord_live_xjmEW4dIyJM9G4cc
+                    amount: 6000
+                    payment_code: '13642064'
+                    currency_code: PEN
+                    description: Venta de polo
+                    order_number: '#id-9999'
+                    state: pending
+                    total_fee: null
+                    net_amount: null
+                    fee_details: null
+                    creation_date: 1538540487
+                    expiration_date: 1538540700
+                    updated_at: null
+                    paid_at: null
+                    available_on: null
+                    metadata: null
+                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
+                    cuotealo: url de cuotéalo
+      description: 'El uso de este método es opcional. Confirmar una orden permite que una orden se habilite para ser pagada, generandole un código de pago y pasando a estado "pendiente". Solo se puede usar este método cuando la orden se encuentra en estado "creada".'
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          description: Llave privada.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                example-1:
+                  id: ord_live_xjmEW4dIyJM9G4cc
+                  order_types:
+                    - cuotealo
+                    - cip
+              properties:
+                id:
+                  type: string
+                  description: ID de la orden a confirmar.
+                order_types:
+                  type: array
+                  description: Es el medio de confirmación de cuotéalo y cip. Pueden ser ambas o una de ellas.
+                  items:
+                    type: string
+              required:
+                - id
+                - order_types
       tags:
         - Ordenes
   '/v2/events/{id}':
@@ -4140,24 +4318,12 @@ components:
         metadata:
           type: object
           description: 'Envía parametros adicionales con información relevante. [Ver más.](#section/Metadata)'
-        total_fee:
-          type: integer
-          description: Monto total de la comisión variable cobrada por Culqi en céntimos.
-          example: 471
         fee_details:
           type: object
           description: |-
             Información detallada acerca de la comisión cobrada por Culqi.
 
-            **IMPORTANTE:** Las comisiones se calculan de manera asíncrona, por lo que podrá recibir valores en blanco o NULL temporalmente.
-        total_fee_taxes:
-          type: integer
-          description: Monto total del IGV de la comisión variable expresado en céntimos.
-          example: '72'
-        transfer_amount:
-          type: integer
-          description: Monto total a transferir por el cargo en la cuenta bancaria (Descuento de solo la comisión variable).
-          example: 9529
+            **IMPORTANTE:** Las comisiones se calculan de manera asíncrona, por lo que podrá recibir valores en blanco o NULL temporalmente.                
         paid:
           type: boolean
           description: 'Indica si el cargo está depositado en la cuenta bancaria. Revisa la [guía de depósitos](https://docs.culqi.com/#/operaciones/depositos) para más información.'
@@ -4183,10 +4349,7 @@ components:
         - reference_code
         - duplicated
         - metadata
-        - total_fee
         - fee_details
-        - total_fee_taxes
-        - transfer_amount
         - paid
         - statement_descriptor
         - operations
@@ -4462,7 +4625,7 @@ components:
         currency_code:
           type: string
           minLength: 1
-          description: 'Código del país de la moneda de la suscripción en formato **ISO 3166-2**.'
+          description: Código del país de la moneda de la suscripción en formato **ISO 3166-2**.
           enum:
             - PEN
             - USD
@@ -4555,7 +4718,7 @@ components:
         currency_code:
           type: string
           minLength: 1
-          description: 'Código de la moneda en tres letras Formato **ISO 4217**.'
+          description: Código de la moneda en tres letras Formato **ISO 4217**.
           enum:
             - PEN
         description:
@@ -4688,8 +4851,6 @@ components:
                   currency_code: PEN
                   commision: 0.0399
                   total: 12
-              total_fee_taxes: 2
-              transfer_amount: 286
               paid: false
               statement_descriptor: CULQI*
               transfer_id: null
@@ -4837,21 +4998,21 @@ components:
         - plan
         - card
         - metadata
-    Metadata:        
+    Metadata:
       title: Objeto Metadata
       type: object
       properties:
         order_id:
           type: string
-          description: 'Adjunta un número de pedido incremental.'
+          description: Adjunta un número de pedido incremental.
           example: '204055'
         user_id:
           type: string
-          description: 'Adjunta un identificador del cliente de tu sistema.'
+          description: Adjunta un identificador del cliente de tu sistema.
           example: '4625'
         user_details:
           type: string
-          description: 'Adjunta datos adicionales sobre tu cliente 100.'
+          description: Adjunta datos adicionales sobre tu cliente 100.
           example: '46734527'
     Evento:
       description: ''
@@ -4881,7 +5042,7 @@ components:
         - data
       title: Objeto Evento
     Rastreo:
-      type: object     
+      type: object
       properties:
         date:
           type: string
@@ -4936,7 +5097,7 @@ components:
           example: '"chr_test_stm3Fr4HIPC50qxH"'
         code:
           type: string
-          description: "Indica el tipo de error relacionado a una tarjeta"
+          description: Indica el tipo de error relacionado a una tarjeta
           example: ' "card_declined"'
         declined_code:
           type: string
@@ -4952,11 +5113,11 @@ components:
           example: ' "Su tarjeta no tiene fondos suficientes. Verifica tus fondos disponibles con el banco emisor o inténta nuevamente con otra tarjeta."'
         param:
           type: string
-          description: "Indica el parámetro específico relacionado al error."
+          description: Indica el parámetro específico relacionado al error.
           example: ' "amount"'
       required:
         - type
-        - merchant_message      
+        - merchant_message
   parameters:
     date:
       name: date
