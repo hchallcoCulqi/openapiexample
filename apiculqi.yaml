@@ -8,7 +8,7 @@ info:
 
     Para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el **entorno de pruebas** ([Regístrate](https://integ-panel.culqi.com/#/registro) y obtén tus llaves) y el **entorno de producción**. Usando las **llaves de prueba** las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar [tarjetas de prueba](https://docs.culqi.com/#/desarrollo/tarjetas), no tarjetas reales al probar!).
     
-    <div class="box info"><div class="content">Nunca deberías exponer tu <a href="https://docs.culqi.com/#/cuenta/cuenta#llaves">Llave Secreta</a> en el código de la aplicación web cliente.</div></div>
+    <div class="box info"><div class="content">Nunca deberías exponer tu <a href="https://docs.culqi.com/#/cuenta/cuenta#llaves">llave Secreta</a> en el código de la aplicación web cliente.</div></div>
     
     <div class="cntrecursos">
       <a href="#tag/Tokens">
