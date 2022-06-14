@@ -8,7 +8,7 @@ info:
 
     Para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el **entorno de pruebas** ([Regístrate](https://integ-panel.culqi.com/#/registro) y obtén tus llaves) y el **entorno de producción**. Usando las **llaves de prueba** las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar [tarjetas de prueba](https://docs.culqi.com/#/desarrollo/tarjetas), no tarjetas reales al probar!).
     
-    <div class="box info"><div class="content">Nunca deberías exponer tu [Llave Secreta](https://docs.culqi.com/#/cuenta/cuenta#llaves) en el código de la aplicación web cliente.</div></div>
+    <div class="box info"><div class="content">Nunca deberías exponer tu <a href="https://docs.culqi.com/#/cuenta/cuenta#llaves">Llave Secreta</a> en el código de la aplicación web cliente.</div></div>
     
     <div class="cntrecursos">
       <a href="#tag/Tokens">
@@ -428,7 +428,7 @@ info:
    
 
     # Paginación
-    Todas las APIs de Culqi soportan operaciones de listado, entre ellos [Tokens](https://apidocs.culqi.com/#/tokens), [Cargos](https://apidocs.culqi.com/#/cargos), [Tarjetas](https://apidocs.culqi.com/#/tarjetas), [Clientes](https://apidocs.culqi.com/#/clientes), [Suscripciones](https://apidocs.culqi.com/#/suscripciones), [Devoluciones] (https://apidocs.culqi.com/#/devoluciones) y [Planes](https://apidocs.culqi.com/#/planes). Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
+    Todas las APIs de Culqi soportan operaciones de listado, entre ellos [Tokens](https://apidocs.culqi.com/#/tokens), [Cargos](https://apidocs.culqi.com/#/cargos), [Tarjetas](https://apidocs.culqi.com/#/tarjetas), [Clientes](https://apidocs.culqi.com/#/clientes), [Suscripciones](https://apidocs.culqi.com/#/suscripciones), [Devoluciones](https://apidocs.culqi.com/#/devoluciones) y [Planes](https://apidocs.culqi.com/#/planes). Adicionalmente, todos los métodos de listado del API comparten una estructura similar tomando en cuenta estos tres parámetros: limit, after y before.
 
     Culqi utiliza una paginación en tiempo real basada en cursor a través de los parámetros after y before. Un cursor se refiere a un <em>string</em> de caracteres random que marca un ítem específico en una lista de datos. A menos que el ítem sea borrado, el cursor siempre estará punteando la misma parte de la lista, pero será invalidado si el ítem es removido.
 
