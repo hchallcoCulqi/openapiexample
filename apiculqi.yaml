@@ -8,7 +8,7 @@ info:
 
     Para que puedas comenzar a experimentar con nuestra API, todas las cuentas registradas en Culqi poseen llaves para el **entorno de pruebas** ([Regístrate](https://integ-panel.culqi.com/#/registro) y obtén tus llaves) y el **entorno de producción**. Usando las **llaves de prueba** las transacciones nunca pasan por las redes bancarias y no tienen ningún costo. (¡Recuerda usar [tarjetas de prueba](https://docs.culqi.com/#/desarrollo/tarjetas), no tarjetas reales al probar!).
     
-    <div class="box info"><div class="content">Nunca deberías exponer tu <a href="https://docs.culqi.com/#/cuenta/cuenta#llaves">llave Secreta</a> en el código de la aplicación web cliente.</div></div>
+    <div class="box info"><div class="content">Nunca deberías exponer tu <a href="https://docs.culqi.com/#/cuenta/cuenta#llaves">Llave Secreta</a> en el código de la aplicación web cliente.</div></div>
     
     <div class="cntrecursos">
       <a href="#tag/Tokens">
@@ -792,7 +792,7 @@ info:
     | --- | --- |
     | order.status.changed	| La orden cambió de estado. Ver los ejemplos de cambios de estado de órdenes [aquí.](https://docs.culqi.com/#/multipagos/pruebas) |
     | order.creation.succeeded | La orden fue creada con éxito. |
-        
+  
 servers:
   - url: 'https://api.culqi.com'
 tags:
@@ -3111,60 +3111,6 @@ paths:
           in: query
           name: after
           description: El ID de la suscripción desde donde se quiere traer la siguiente página. No inclusivo.
-    patch:
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '200':
-          description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    id: 13
-                    firstName: Rebecca
-                    lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
-        '404':
-          description: User Not Found
-        '409':
-          description: Email Already Taken
-      description: Update the information of an existing user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
-                  type: string
-            examples:
-              Update First Name:
-                value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
-      tags:
-        - Suscripciones
     post:
       summary: Crear Suscripción
       operationId: post-v2-subscriptions
@@ -3420,58 +3366,6 @@ paths:
           in: query
           name: after
           description: El ID de la orden desde donde se quiere traer los resultados siguientes. No inclusivo.
-    patch:
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '200':
-          description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    id: 13
-                    firstName: Rebecca
-                    lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
-        '404':
-          description: User Not Found
-        '409':
-          description: Email Already Taken
-      description: Update the information of an existing user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
-                  type: string
-            examples:
-              Update First Name:
-                value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
     post:
       summary: Crear Orden
       operationId: post-v2-orders
@@ -3590,6 +3484,8 @@ paths:
                 - order_number
                 - expiration_date
                 - client_details
+      tags:
+        - Ordenes
   '/v2/orders/{id}/confirm':
     post:
       summary: Confirmar orden
@@ -3651,6 +3547,88 @@ paths:
         in: path
         required: true
         description: ID de la orden a confirmar.
+  /v2/orders/confirm:
+    post:
+      summary: Confirmar tipo de Orden
+      operationId: post-v2-orders-confirm
+      responses:
+        '200':
+          description: Petición exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    object: order
+                    id: ord_live_xjmEW4dIyJM9G4cc
+                    amount: 6000
+                    payment_code: '13642064'
+                    currency_code: PEN
+                    description: Venta de polo
+                    order_number: '#id-9999'
+                    state: pending
+                    total_fee: null
+                    net_amount: null
+                    fee_details: null
+                    creation_date: 1538540487
+                    expiration_date: 1538540700
+                    updated_at: null
+                    paid_at: null
+                    available_on: null
+                    metadata: null
+                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
+                    cuotealo: url de cuotéalo
+      description: 'El uso de este método es opcional. Confirmar una orden permite que una orden se habilite para ser pagada, generandole un código de pago y pasando a estado "pendiente". Solo se puede usar este método cuando la orden se encuentra en estado "creada".'
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - application/json
+          in: header
+          name: Content-type
+          required: true
+        - schema:
+            type: string
+            example: Bearer sk_test_UTCQSGcXW8bCyU59
+          in: header
+          name: Authorization
+          description: Llave privada.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                example-1:
+                  id: ord_live_xjmEW4dIyJM9G4cc
+                  order_types:
+                    - cuotealo
+                    - cip
+              properties:
+                id:
+                  type: string
+                  description: ID de la orden a confirmar.
+                order_types:
+                  type: array
+                  description: Es el medio de confirmación de cuotéalo y cip. Pueden ser ambas o una de ellas.
+                  items:
+                    type: string
+              required:
+                - id
+                - order_types
+            examples:
+              example-1:
+                value:
+                  id: ord_live_xjmEW4dIyJM9G4cc
+                  order_types:
+                    - cuotealo
+                    - cip
+      tags:
+        - Ordenes
   '/v2/orders/{id}':
     parameters:
       - schema:
@@ -3800,88 +3778,6 @@ paths:
           in: header
           name: Authorization
           description: Bearer << llave_privada >>
-      tags:
-        - Ordenes
-  /v2/orders/confirm:
-    post:
-      summary: Confirmar tipo de Orden
-      operationId: post-v2-orders-confirm
-      responses:
-        '200':
-          description: Petición exitosa.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
-              examples:
-                example-1:
-                  value:
-                    object: order
-                    id: ord_live_xjmEW4dIyJM9G4cc
-                    amount: 6000
-                    payment_code: '13642064'
-                    currency_code: PEN
-                    description: Venta de polo
-                    order_number: '#id-9999'
-                    state: pending
-                    total_fee: null
-                    net_amount: null
-                    fee_details: null
-                    creation_date: 1538540487
-                    expiration_date: 1538540700
-                    updated_at: null
-                    paid_at: null
-                    available_on: null
-                    metadata: null
-                    qr: iVBORw0KGgoAAAANSUhE..........K5CYII=
-                    cuotealo: url de cuotéalo
-      description: 'El uso de este método es opcional. Confirmar una orden permite que una orden se habilite para ser pagada, generandole un código de pago y pasando a estado "pendiente". Solo se puede usar este método cuando la orden se encuentra en estado "creada".'
-      parameters:
-        - schema:
-            type: string
-            enum:
-              - application/json
-          in: header
-          name: Content-type
-          required: true
-        - schema:
-            type: string
-            example: Bearer sk_test_UTCQSGcXW8bCyU59
-          in: header
-          name: Authorization
-          description: Llave privada.
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              x-examples:
-                example-1:
-                  id: ord_live_xjmEW4dIyJM9G4cc
-                  order_types:
-                    - cuotealo
-                    - cip
-              properties:
-                id:
-                  type: string
-                  description: ID de la orden a confirmar.
-                order_types:
-                  type: array
-                  description: Es el medio de confirmación de cuotéalo y cip. Pueden ser ambas o una de ellas.
-                  items:
-                    type: string
-              required:
-                - id
-                - order_types
-            examples:
-              example-1:
-                value:
-                  id: ord_live_xjmEW4dIyJM9G4cc
-                  order_types:
-                    - cuotealo
-                    - cip
       tags:
         - Ordenes
   '/v2/events/{id}':
