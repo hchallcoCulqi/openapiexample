@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  $ref: "info.yaml"
+  $ref: "./info/info.yaml"
 servers:
   - url: https://api.culqi.com
 paths:
