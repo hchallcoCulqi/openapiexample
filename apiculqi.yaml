@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  $ref: https://raw.githubusercontent.com/hchallcoCulqi/openapiexample/main/info/info.yaml
+  $ref: "https://raw.githubusercontent.com/hchallcoCulqi/openapiexample/main/info/info.yaml"
 servers:
   - url: https://api.culqi.com
 paths:
